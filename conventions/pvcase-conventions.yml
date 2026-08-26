@@ -1,0 +1,159 @@
+generated: '2026-08-26'
+method: derived
+source: >-
+  openapi/pvcase-anderson-optimization-openapi.json plus the PVcase Prospect API docs at
+  https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering
+api: PVcase Prospect API (Anderson Optimization API)
+authentication:
+  style: HTTP Basic
+  credential: AO username as user, API token as password
+  header: 'Authorization: Basic base64(username:api_token)'
+  applied: globally via a root-level security requirement (basicAuth on all 48 operations)
+  token_issuance:
+    operation: GET /auth/token
+    host: core-v1.carbon.prod.andersonopt.com
+    note: >-
+      Returns userId, token and a convenience api_key which is the base64 of
+      username:token. Also generatable from the user profile in the Prospect UI.
+  see_also: authentication/pvcase-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  note: >-
+    No Idempotency-Key header, no idempotency semantics and no request-replay guidance
+    appear anywhere in the OpenAPI description or the published documentation. The three
+    creating operations (POST /api/teams, POST /api/teams/{teamId}/projects/,
+    POST /api/teams/{teamId}/assets) return 201 with no documented dedupe key, so a
+    retried create will produce a duplicate.
+pagination:
+  style: >-
+    AG Grid server-side row model. Query operations POST a grid request body rather than
+    using query-string paging, so pagination is request-body driven and not visible in
+    the URL.
+  request_fields:
+  - startRow
+  - endRow
+  - sortModel
+  - filterModel
+  - groupKeys
+  - rowGroupCols
+  - valueCols
+  - pivotCols
+  response_fields:
+  - rowData
+  - totalCount
+  cursor: false
+  note: >-
+    totalCount lets a client compute page count. There is no link header, no next-cursor
+    and no documented maximum page size.
+filtering:
+  style: filterModel object in the POST query body
+  distinct_values:
+    note: >-
+      Companion "Distinct Column Values" operations
+      (POST /api/assets/query/column, /api/assets/query/project/column,
+      /api/projects/query/column) return the distinct values of a column so a client can
+      build filter pickers.
+field_selection:
+  supported: partial
+  note: valueCols / rowGroupCols select and aggregate columns on query operations.
+metadata:
+  supported: true
+  note: >-
+    Assets and projects carry an open-ended `parameter` field. The available keys depend on
+    asset type (parcel, substation, transmission line) and are documented in external
+    Google Sheets linked from the Assets and Projects reference pages rather than in the
+    spec.
+request_id:
+  supported: false
+  note: No request-id / correlation-id header is documented or declared in the spec.
+versioning:
+  scheme: none-in-path
+  spec_version: 1.0.0-beta
+  note: >-
+    Paths are prefixed /api/ with no version segment. The only version signal is
+    info.version = 1.0.0-beta in the OpenAPI description. Host names carry the version
+    instead (core-v1..., core-v2...), which is not a client-visible contract.
+error_envelope:
+  format: bare JSON string
+  rfc9457: false
+  see_also: errors/pvcase-problem-types.yml
+rate_limit_signaling:
+  documented: false
+  headers: []
+  note: >-
+    No RateLimit-*, X-RateLimit-* or Retry-After header is documented, and no 429 response
+    is declared on any operation.
+  see_also: rate-limits/pvcase-rate-limits.yml
+media_types:
+  request: application/json
+  response: application/json
+  note: >-
+    The vector-tile operations (/api/.../{z}/{x}/{y}) are declared application/json in the
+    spec, although the Prospect client consumes them as Mapbox Vector Tiles.
+reversibility:
+  grade: absent
+  applicable: true
+  note: >-
+    The API has a real write surface — 3 create (POST), 3 update (PATCH) and 3 delete
+    (DELETE) operations across teams, projects and assets — but neither the OpenAPI
+    description nor the published documentation names a single reversal operation. There is
+    no undo, restore, trash, soft-delete flag, recycle bin or version-history endpoint, and
+    no retention window is stated anywhere. An agent calling
+    DELETE /api/teams/{teamId}/projects/{projectId} has no documented way to determine
+    whether the project can be recovered, or for how long.
+  write_surfaces:
+  - operation: POST /api/teams
+    summary: Create Team
+    reversal: DELETE /api/teams/{teamId}
+    reversal_type: delete-the-created-resource
+    window: null
+    window_source: null
+    note: >-
+      A delete is not a documented reversal — it is a second destructive write. Recorded
+      here only because it is the sole path back to the prior state.
+  - operation: POST /api/teams/{teamId}/projects/
+    summary: Create Project
+    reversal: DELETE /api/teams/{teamId}/projects/{projectId}
+    reversal_type: delete-the-created-resource
+    window: null
+    window_source: null
+  - operation: POST /api/teams/{teamId}/assets
+    summary: Create Asset
+    reversal: DELETE /api/teams/{teamId}/assets/{assetId}
+    reversal_type: delete-the-created-resource
+    window: null
+    window_source: null
+  - operation: PATCH /api/teams/{teamId}
+    summary: Update Team
+    reversal: null
+    window: null
+    note: No prior-state read-back or revision history is documented; a PATCH is unrecoverable.
+  - operation: PATCH /api/teams/{teamId}/projects/{projectId}
+    summary: Update Project
+    reversal: null
+    window: null
+  - operation: PATCH /api/teams/{teamId}/assets/{assetId}
+    summary: Update Asset
+    reversal: null
+    window: null
+  - operation: DELETE /api/teams/{teamId}
+    summary: Delete Team
+    reversal: null
+    window: null
+    note: No restore endpoint. Irreversible as documented.
+  - operation: DELETE /api/teams/{teamId}/projects/{projectId}
+    summary: Delete Project
+    reversal: null
+    window: null
+    note: No restore endpoint. Irreversible as documented.
+  - operation: DELETE /api/teams/{teamId}/assets/{assetId}
+    summary: Delete Asset
+    reversal: null
+    window: null
+    note: No restore endpoint. Irreversible as documented.
+dry_run_mode:
+  supported: false
+  note: >-
+    No preview, validate-only, simulate or dry-run parameter is declared on any write
+    operation.

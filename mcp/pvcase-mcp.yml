@@ -1,0 +1,105 @@
+generated: '2026-08-26'
+method: derived
+source: openapi/pvcase-anderson-optimization-openapi.json
+status: candidate
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: searched
+search_evidence:
+  note: >-
+    No official or community MCP server for PVcase or Anderson Optimization was found. The
+    full PVcase Prospect documentation index (llms.txt) and the 328-article Zendesk help
+    centre contain no MCP, Model Context Protocol or agent-tooling reference; no
+    /mcp or /sse endpoint answers on any probed host; and npm and PyPI have no pvcase or
+    andersonopt package. mode is none — nobody ships a server. The tools below are a
+    CANDIDATE surface derived from the published OpenAPI, not something PVcase operates.
+  probes:
+  - url: https://registry.npmjs.org/-/v1/search?text=pvcase
+    status: 200
+    result: 0 results
+  - url: https://pypi.org/pypi/pvcase/json
+    status: 404
+  - url: https://api.andersonopt.com/
+    status: '<no response> (DNS NXDOMAIN)'
+auth:
+  scheme: HTTP Basic (AO username + API token)
+  note: >-
+    A server built on this contract would need a per-user token; the API is enterprise
+    sales-gated, so a public hosted server is not currently plausible.
+tools:
+- name: list_teams
+  description: List every team the authenticated user belongs to.
+  rest: GET /api/teams
+  inputSchema_source: openapi
+- name: get_team
+  description: Retrieve a single team by id.
+  rest: GET /api/teams/{teamId}
+- name: list_projects
+  description: List all projects in a team.
+  rest: GET /api/teams/{teamId}/projects
+- name: get_project
+  description: Retrieve a single project by id within a team.
+  rest: GET /api/teams/{teamId}/projects/{projectId}
+- name: query_projects
+  description: >-
+    Search across many projects at once using the AG Grid query body (filterModel,
+    sortModel, startRow/endRow); returns rowData and totalCount.
+  rest: POST /api/projects/query
+- name: query_team_projects
+  description: Search projects scoped to one team.
+  rest: POST /api/teams/{teamId}/projects/query
+- name: query_recent_projects
+  description: Query the authenticated user's recently viewed projects.
+  rest: POST /api/projects/query/recent
+- name: query_favorite_projects
+  description: Query the authenticated user's favourited projects.
+  rest: POST /api/projects/query/favorite
+- name: get_asset
+  description: Retrieve a single grid or land asset by id within a team.
+  rest: GET /api/teams/{teamId}/assets/{assetId}
+- name: query_assets
+  description: >-
+    Search across many assets (land parcels, substations, transmission lines) at once.
+  rest: POST /api/assets/query
+- name: query_assets_by_project
+  description: Query assets filtered to a given project.
+  rest: POST /api/assets/query/project
+- name: distinct_asset_column_values
+  description: >-
+    Return the distinct values of one asset column, for building filter pickers.
+  rest: POST /api/assets/query/column
+- name: distinct_project_column_values
+  description: Return the distinct values of one project column.
+  rest: POST /api/projects/query/column
+- name: get_company
+  description: Retrieve company-level information.
+  rest: GET /api/companies/{cid}
+- name: query_company_assets
+  description: Query assets across every team in a company.
+  rest: POST /api/companies/{cid}/assets/query
+- name: get_asset_tile
+  description: >-
+    Fetch an XYZ vector tile of a team's assets, optionally filtered by filterType
+    (asset:network:line, asset:network:substation).
+  rest: GET /api/teams/{teamId}/assets/{z}/{x}/{y}
+write_tools_excluded:
+  note: >-
+    The 9 write operations (POST/PATCH/DELETE on teams, projects and assets) are
+    deliberately NOT proposed as tools. The contract documents no idempotency key, no
+    dry-run mode and no reversal or restore path for any of them (see
+    conventions/pvcase-conventions.yml reversibility), so an agent cannot retry safely or
+    undo a mistake.
+  operations:
+  - POST /api/teams
+  - PATCH /api/teams/{teamId}
+  - DELETE /api/teams/{teamId}
+  - POST /api/teams/{teamId}/projects/
+  - PATCH /api/teams/{teamId}/projects/{projectId}
+  - DELETE /api/teams/{teamId}/projects/{projectId}
+  - POST /api/teams/{teamId}/assets
+  - PATCH /api/teams/{teamId}/assets/{assetId}
+  - DELETE /api/teams/{teamId}/assets/{assetId}

@@ -1,0 +1,18 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/llms.txt and the
+  API reference pages under /prospect/advanced-tools/api-future-offering ; and
+  openapi/pvcase-anderson-optimization-openapi.json
+api: PVcase Prospect API (Anderson Optimization API)
+limit_count: 0
+limits: []
+response_headers: []
+exhaustion_status: null
+note: >-
+  PVcase publishes no rate limits for the Prospect / Anderson Optimization API. The full
+  documentation index (llms.txt, 328 help-centre articles plus the GitBook tree) contains no
+  rate-limit, quota, throttle or Retry-After guidance, the OpenAPI declares no 429 response
+  on any of its 48 operations, and no RateLimit-* or X-RateLimit-* header is described. An
+  agent therefore has no documented runtime signal for backpressure and must treat any 500
+  as potentially load-related. Honest zero, not an unchecked field.

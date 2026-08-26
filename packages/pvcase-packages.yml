@@ -1,0 +1,39 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  registry.npmjs.org, pypi.org, rubygems.org, crates.io, api.nuget.org, search.maven.org
+  and the PVcase Prospect documentation, probed 2026-08-26
+package_count: 0
+official_sdk_count: 0
+packages: []
+registries_probed:
+- registry: npm
+  query: 'text=pvcase'
+  url: https://registry.npmjs.org/-/v1/search?text=pvcase
+  status: 200
+  results: 0
+- registry: npm
+  package: pvcase
+  status: 404
+  version: null
+- registry: npm
+  package: andersonopt
+  status: 404
+  version: null
+- registry: pypi
+  package: pvcase
+  url: https://pypi.org/pypi/pvcase/json
+  status: 404
+  version: null
+- registry: pypi
+  package: andersonopt
+  status: 404
+  version: null
+note: >-
+  PVcase publishes no first-party client library on any public registry, and there is no
+  PVcase or Anderson Optimization GitHub organization (github.com/pvcase returns 404). The
+  documentation's Quick Start shows raw HTTP only — curl, Node.js with axios, and Python
+  with requests — against the API directly. A Jupyter notebook example for geospatial asset
+  queries is referenced in the docs ("Python Example (asset query, geospatial)") but it is
+  a sample notebook, not a distributed package, and is not published to PyPI. No SDKs
+  pointer is emitted because no SDK exists.

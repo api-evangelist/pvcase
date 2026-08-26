@@ -1,0 +1,30 @@
+generated: '2026-08-26'
+method: searched
+source: https://help.pvcase.com/hc/en-us/sections/46067717775251--Release-notes
+api_specific: false
+scheme: month-named product release notes
+note: >-
+  PVcase publishes dated product release notes in its Zendesk help centre, organised as one
+  article per month covering the whole product family (Prospect, Ground Mount, Roof Mount,
+  Yield). There is no API-specific changelog, no version-to-change mapping for the
+  Anderson Optimization API, and no breaking-change notice channel for API consumers.
+  Entries below were enumerated from the help centre's public article index
+  (help.pvcase.com/api/v2/help_center/en-us/articles.json), which returned 328 articles.
+current_version: 1.0.0-beta
+current_version_source: openapi/pvcase-anderson-optimization-openapi.json (info.version)
+entries:
+- date: '2026-01'
+  title: January 2026
+  url: https://help.pvcase.com/hc/en-us/articles/49064052340115-January-2026
+  breaking: unknown
+  api_affecting: unknown
+- date: '2024-08'
+  title: August 2024
+  url: https://help.pvcase.com/hc/en-us/articles/35594082999059-August-2024
+  breaking: unknown
+  api_affecting: unknown
+gaps:
+- No API changelog. An API consumer cannot tell from any published page whether the beta
+  contract has changed.
+- Release-note articles are not tagged by product surface, so API-affecting changes are not
+  separable from UI changes.

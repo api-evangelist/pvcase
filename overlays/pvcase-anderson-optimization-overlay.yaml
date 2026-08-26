@@ -1,0 +1,97 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for the Anderson Optimization (PVcase Prospect) API
+  version: 1.0.0
+x-provenance:
+  generated: '2026-08-26'
+  method: generated
+  source: openapi/pvcase-anderson-optimization-openapi.json
+  note: >-
+    Non-destructive overlay recording the enrichment findings. It never mutates the
+    provider's original description. The operationId values below are OUR proposal — the
+    published spec declares none on any of its 48 operations, which is the single largest
+    machine-readability gap in this contract.
+extends: ../openapi/pvcase-anderson-optimization-openapi.json
+actions:
+- target: $.info
+  update:
+    x-provider: PVcase
+    x-product: PVcase Prospect
+    x-maturity: beta
+    x-acquisition-note: >-
+      Published as the "Anderson Optimization API". Anderson Optimization was acquired by
+      PVcase in June 2023; andersonopt.com now redirects to prospect.pvcase.com and
+      docs.andersonopt.com redirects to the PVcase Prospect documentation.
+    x-access: enterprise, sales-gated
+- target: $.servers[0]
+  update:
+    x-liveness: unresolvable
+    x-probed: '2026-08-26'
+    x-note: >-
+      core-v1.carbon.prod.andersonopt.com does not resolve in DNS. The live PVcase Prospect
+      client configures its API against https://core-v2.prod.andersonopt.com. The
+      documentation's Quick Start samples use a third host, https://api.andersonopt.com,
+      which also does not resolve.
+- target: $.paths['/api/teams'].get
+  update:
+    operationId: listTeams
+- target: $.paths['/api/teams'].post
+  update:
+    operationId: createTeam
+- target: $.paths['/api/teams/{teamId}'].get
+  update:
+    operationId: getTeam
+- target: $.paths['/api/teams/{teamId}'].patch
+  update:
+    operationId: updateTeam
+- target: $.paths['/api/teams/{teamId}'].delete
+  update:
+    operationId: deleteTeam
+    x-agentic-consequence: destructive
+    x-reversible: false
+- target: $.paths['/api/teams/{teamId}/projects'].get
+  update:
+    operationId: listTeamProjects
+- target: $.paths['/api/teams/{teamId}/projects/'].post
+  update:
+    operationId: createProject
+- target: $.paths['/api/teams/{teamId}/projects/{projectId}'].get
+  update:
+    operationId: getProject
+- target: $.paths['/api/teams/{teamId}/projects/{projectId}'].patch
+  update:
+    operationId: updateProject
+- target: $.paths['/api/teams/{teamId}/projects/{projectId}'].delete
+  update:
+    operationId: deleteProject
+    x-agentic-consequence: destructive
+    x-reversible: false
+- target: $.paths['/api/teams/{teamId}/assets'].post
+  update:
+    operationId: createAsset
+- target: $.paths['/api/teams/{teamId}/assets/{assetId}'].get
+  update:
+    operationId: getAsset
+- target: $.paths['/api/teams/{teamId}/assets/{assetId}'].patch
+  update:
+    operationId: updateAsset
+- target: $.paths['/api/teams/{teamId}/assets/{assetId}'].delete
+  update:
+    operationId: deleteAsset
+    x-agentic-consequence: destructive
+    x-reversible: false
+- target: $.paths['/api/assets/query'].post
+  update:
+    operationId: queryAssets
+- target: $.paths['/api/assets/query/column'].post
+  update:
+    operationId: queryAssetDistinctColumnValues
+- target: $.paths['/api/projects/query'].post
+  update:
+    operationId: queryProjects
+- target: $.paths['/api/projects/query/column'].post
+  update:
+    operationId: queryProjectDistinctColumnValues
+- target: $.paths['/api/companies/{cid}'].get
+  update:
+    operationId: getCompany

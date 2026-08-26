@@ -1,0 +1,13 @@
+generated: '2026-08-26'
+method: derived
+source: openapi/pvcase-anderson-optimization-openapi.json
+summary:
+  types:
+  - http
+schemes:
+- name: basicAuth
+  type: http
+  scheme: basic
+  description: AO Username and API Token Authentication
+  sources:
+  - openapi/pvcase-anderson-optimization-openapi.json

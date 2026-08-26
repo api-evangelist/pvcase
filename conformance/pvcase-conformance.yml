@@ -1,0 +1,103 @@
+generated: '2026-08-26'
+method: derived
+source: >-
+  openapi/pvcase-anderson-optimization-openapi.json ; https://pvcase.com/trust-center ;
+  https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation
+entries:
+- id: openapi-3.0
+  conforms: true
+  evidence: >-
+    openapi: 3.0.3 with 37 paths / 48 operations / 252 component schemas, published as
+    beta-latest-prod.json and embedded in the PVcase Prospect GitBook reference pages.
+- id: http-basic-auth
+  conforms: true
+  evidence: >-
+    components.securitySchemes.basicAuth (type http, scheme basic), applied globally via a
+    root-level security requirement.
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 securityScheme is declared and no OAuth flow is documented.
+- id: oidc
+  conforms: false
+  evidence: >-
+    SSO is offered as an enterprise feature per the API technical overview, but no
+    openid-configuration document is served on any host and no openIdConnect scheme is
+    declared.
+- id: rfc9457
+  conforms: false
+  evidence: >-
+    Error bodies are bare JSON strings ("Requires Authentication"), not
+    application/problem+json.
+- id: rfc8594
+  conforms: false
+  evidence: No Sunset or Deprecation header, and no deprecation policy is published.
+- id: idempotency
+  conforms: false
+  evidence: No Idempotency-Key header or replay semantics in spec or docs.
+- id: pagination
+  conforms: true
+  evidence: >-
+    AG Grid server-side row model — startRow/endRow/sortModel/filterModel in the POST query
+    body, rowData/totalCount in the response. Consistent across all 26 Query operations.
+- id: rate-limit-headers
+  conforms: false
+  evidence: No RateLimit-* / X-RateLimit-* headers and no 429 declared.
+- id: soc2
+  conforms: true
+  evidence: >-
+    PVcase Prospect holds SOC 2 Type I and Type II attestations (AICPA Trust Services
+    Criteria — security, availability, confidentiality), per https://pvcase.com/trust-center.
+    Reports are available under NDA from legal@pvcase.com.
+- id: soc3
+  conforms: true
+  evidence: >-
+    SOC 3 report for PVcase Prospect published openly at
+    https://s3-pvc-web-assets-p-aec1.s3.eu-central-1.amazonaws.com/assets/trust-center/pvcase-prospect-soc-3-2025.pdf
+- id: iso27001
+  conforms: false
+  evidence: Not claimed on the trust centre.
+domain_standards:
+  sector: energy / solar project development / geospatial
+  searched:
+  - id: ogc-wms
+    conforms: partial
+    evidence: >-
+      The API technical overview advertises a "Read-only WMS layer" to display AO GIS data
+      in other GIS systems in real time — an OGC Web Map Service surface. It is named in the
+      prose but is NOT described in the OpenAPI contract, has no documented endpoint, and no
+      GetCapabilities URL is published, so conformance cannot be verified from the contract.
+      The related PVcase Prospect client consumes an OGC OWS endpoint at
+      https://geoserver.prod.andersonopt.com/geoserver/AO/ows (GeoServer), which is
+      application infrastructure rather than a published customer contract.
+  - id: ogc-api-features
+    conforms: false
+    evidence: >-
+      No /collections, /conformance or OGC API - Features landing page exists on any probed
+      host.
+  - id: xyz-vector-tiles
+    conforms: true
+    evidence: >-
+      Eight operations expose the de-facto XYZ tile scheme
+      (/api/{scope}/{id}/{assets|projects}/{z}/{x}/{y}); the Prospect client decodes them as
+      Mapbox Vector Tiles. This is a de-facto convention, not a formal OGC standard, and the
+      spec declares the media type as application/json rather than
+      application/vnd.mapbox-vector-tile.
+  - id: geojson-rfc7946
+    conforms: unknown
+    evidence: >-
+      Geometry is carried inside anonymous def-N schemas; no GeoJSON media type or $ref to
+      an RFC 7946 shape is declared, so it cannot be asserted from the contract.
+  - id: iec-61970-cim
+    conforms: false
+    evidence: >-
+      Grid assets (substation, transmission line) are modelled with a bespoke
+      asset:network:* taxonomy rather than the IEC 61970 Common Information Model used for
+      power-system data exchange.
+  - id: sunspec
+    conforms: false
+    evidence: Not applicable — this is a design/siting API, not a device telemetry surface.
+  note: >-
+    Reward-only. The market's candidate standards for this surface are the OGC family (WMS,
+    OGC API - Features, GeoJSON) and IEC 61970 CIM for grid modelling. PVcase names a WMS
+    layer in prose but binds no domain standard inside the contract itself, so no
+    domain-standard signature is present in the machine-readable description.

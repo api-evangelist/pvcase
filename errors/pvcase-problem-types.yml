@@ -1,0 +1,51 @@
+generated: '2026-08-26'
+method: derived
+source: openapi/pvcase-anderson-optimization-openapi.json
+format: plain-string
+note: >-
+  The Anderson Optimization API does NOT use RFC 9457 problem+json. Every documented
+  error response is a bare JSON string body with content-type application/json — there is
+  no envelope, no machine-readable code, no type URI and no field-level detail. An agent
+  can only branch on the HTTP status. Derived from the 48 operations in the published
+  OpenAPI 3.0.3 description; no separate error reference page is published in the PVcase
+  Prospect documentation.
+envelope:
+  media_type: application/json
+  shape: bare JSON string
+  example: '"Requires Authentication"'
+  fields: []
+problem_types:
+- status: 401
+  title: Authorization unsuccessful
+  detail: Authorization unsuccessful. See error message for more details
+  example: Requires Authentication
+  occurrences: 48
+  remediation: >-
+    Send HTTP Basic credentials (AO username as the user, API token as the password).
+    Mint or rotate a token with GET /auth/token on the token host.
+- status: 404
+  title: Resource not found
+  detail: Requested resource could not be located for the supplied identifier
+  occurrences: 18
+  remediation: Verify the teamId / cid / projectId / assetId path parameter.
+- status: 500
+  title: Internal server error
+  detail: Internal server error
+  example: Internal server error
+  occurrences: 48
+  remediation: Retry with backoff; contact support@pvcase.com if it persists.
+coverage:
+  operations_total: 48
+  operations_with_4xx: 48
+  distinct_status_codes:
+  - '200'
+  - '201'
+  - '401'
+  - '404'
+  - '500'
+gaps:
+- No 400 (validation) response is documented on any operation, including the POST query
+  operations that accept a complex filter/sort body.
+- No 403, 409, 422 or 429 responses are documented, so an agent has no documented signal
+  for permission failure, conflict, validation failure or rate-limit exhaustion.
+- No error code registry or error catalogue page exists in the documentation.

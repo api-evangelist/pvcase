@@ -1,0 +1,92 @@
+generated: '2026-08-26'
+method: probed
+source: live HTTP probes 2026-08-26
+note: >-
+  No /.well-known document is served on any PVcase or Anderson Optimization host. pvcase.com
+  returns a hard 404 (Next.js 404 shell) on every path. prospect.pvcase.com is an Angular
+  single-page app whose catch-all answers HTTP 200 with the same 114KB HTML shell for every
+  /.well-known/* path — that is a soft-404, NOT a served document, and is recorded as a miss.
+  The two documented API hosts (api.andersonopt.com and core-v1.carbon.prod.andersonopt.com)
+  do not resolve in DNS at all. No WellKnown or SecurityTxt pointer is emitted, because
+  nothing was actually served.
+hosts:
+- host: pvcase.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+    file: null
+  - path: /.well-known/api-catalog
+    status: 404
+    file: null
+  - path: /.well-known/ai-plugin.json
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+  - path: /.well-known/agent.json
+    status: 404
+    file: null
+- host: prospect.pvcase.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: null
+    note: SPA catch-all HTML shell, not a document — treated as a miss
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: null
+    note: SPA catch-all HTML shell, not a document — treated as a miss
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: null
+    note: SPA catch-all HTML shell, not a document — treated as a miss
+  - path: /.well-known/api-catalog
+    status: 200
+    file: null
+    note: SPA catch-all HTML shell, not a document — treated as a miss
+  - path: /.well-known/ai-plugin.json
+    status: 200
+    file: null
+    note: SPA catch-all HTML shell, not a document — treated as a miss
+  - path: /.well-known/agent-card.json
+    status: 200
+    file: null
+    note: SPA catch-all HTML shell, not a document — treated as a miss
+  - path: /.well-known/agent.json
+    status: 200
+    file: null
+    note: SPA catch-all HTML shell, not a document — treated as a miss
+- host: core-v2.prod.andersonopt.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+    file: null
+  - path: /.well-known/openid-configuration
+    status: 404
+    file: null
+  - path: /.well-known/agent-card.json
+    status: 404
+    file: null
+- host: api.andersonopt.com
+  documents:
+  - path: /.well-known/security.txt
+    status: '<no response> (DNS NXDOMAIN)'
+    file: null
+  - path: /.well-known/agent-card.json
+    status: '<no response> (DNS NXDOMAIN)'
+    file: null
+- host: core-v1.carbon.prod.andersonopt.com
+  documents:
+  - path: /.well-known/security.txt
+    status: '<no response> (DNS NXDOMAIN)'
+    file: null
+  - path: /.well-known/agent-card.json
+    status: '<no response> (DNS NXDOMAIN)'
+    file: null

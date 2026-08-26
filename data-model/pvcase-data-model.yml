@@ -1,0 +1,120 @@
+generated: '2026-08-26'
+method: derived
+source: openapi/pvcase-anderson-optimization-openapi.json
+note: >-
+  Derived from path structure and path parameters rather than from named schemas: all 252
+  entries in components.schemas are anonymous (def-0 … def-251) with no titles, so the
+  entity graph is not readable from $ref names. The hierarchy below is inferred from the
+  nesting of the 37 paths and their identifiers (cid, teamId, projectId, assetId), which is
+  unambiguous.
+entities:
+- name: Company
+  identifier: cid
+  path_root: /api/companies/{cid}
+  description: >-
+    Top-level tenant. Company-scoped query endpoints span every team beneath the company.
+  operations:
+  - GET /api/companies/{cid}
+  - POST /api/companies/{cid}/query
+  writable: false
+  note: No create/update/delete operations are exposed for Company.
+- name: Team
+  identifier: teamId
+  path_root: /api/teams/{teamId}
+  description: >-
+    A collection of projects associated with a specific company and state. The unit of
+    access control — an API token lists the teams the user belongs to.
+  operations:
+  - GET /api/teams
+  - POST /api/teams
+  - GET /api/teams/{teamId}
+  - PATCH /api/teams/{teamId}
+  - DELETE /api/teams/{teamId}
+  writable: true
+- name: Project
+  identifier: projectId
+  path_root: /api/teams/{teamId}/projects/{projectId}
+  description: >-
+    A grouping of items providing a comprehensive view on an opportunity or ongoing
+    project. Carries an open-ended `parameter` field and an `assets` field.
+  operations:
+  - GET /api/teams/{teamId}/projects
+  - POST /api/teams/{teamId}/projects/
+  - GET /api/teams/{teamId}/projects/{projectId}
+  - PATCH /api/teams/{teamId}/projects/{projectId}
+  - DELETE /api/teams/{teamId}/projects/{projectId}
+  writable: true
+- name: Asset
+  identifier: assetId
+  path_root: /api/teams/{teamId}/assets/{assetId}
+  description: >-
+    Physical objects used in the power grid, plus land records. Asset subtypes observed in
+    the Prospect client's layer filters are asset:network:line (transmission line),
+    asset:network:substation, and land parcels. Carries an open-ended `parameter` field
+    whose keys vary by subtype.
+  operations:
+  - POST /api/teams/{teamId}/assets
+  - GET /api/teams/{teamId}/assets/{assetId}
+  - PATCH /api/teams/{teamId}/assets/{assetId}
+  - DELETE /api/teams/{teamId}/assets/{assetId}
+  writable: true
+  subtypes:
+  - land parcel
+  - substation
+  - transmission line
+  - point of interconnection (POI)
+relationships:
+- from: Company
+  to: Team
+  type: has_many
+  via: path nesting (/api/companies/{cid} … teams are scoped to a company and state)
+  confidence: high
+- from: Team
+  to: Project
+  type: has_many
+  via: /api/teams/{teamId}/projects
+  confidence: high
+- from: Project
+  belongs_to: Team
+  type: belongs_to
+  via: teamId path parameter
+  confidence: high
+- from: Team
+  to: Asset
+  type: has_many
+  via: /api/teams/{teamId}/assets
+  confidence: high
+- from: Project
+  to: Asset
+  type: has_many
+  via: >-
+    the `assets` field on a project, and the /assets/query/project family which filters
+    assets by project
+  confidence: high
+- from: Asset
+  belongs_to: Team
+  type: belongs_to
+  via: teamId path parameter
+  confidence: high
+geospatial:
+  tile_scheme: XYZ vector tiles
+  paths:
+  - /api/companies/{cid}/assets/{z}/{x}/{y}
+  - /api/companies/{cid}/projects/{z}/{x}/{y}
+  - /api/teams/{teamId}/assets/{z}/{x}/{y}
+  - /api/teams/{teamId}/projects/{z}/{x}/{y}
+  filter_param: filterType
+  filter_values_observed:
+  - asset:network:line
+  - asset:network:substation
+  note: >-
+    Both GET and POST variants exist per tile path; the POST form accepts a query body so a
+    client can render a filtered subset as tiles.
+field_reference:
+  published: true
+  format: external Google Sheets linked from the reference pages, not in the spec
+  asset_fields: https://docs.google.com/spreadsheets/d/1oqPGOzgfdWVyyl3HEs-BfXcWr39HBdgB7EHQUm5PLuo/edit
+  project_fields: https://docs.google.com/spreadsheets/d/1Z7DIzM6YDzhQibnQ7aaKAVRtcS97_a8VFDuXQH1th8M/edit
+  note: >-
+    The `parameter` payload — the substantive part of the data model — is documented only in
+    two external spreadsheets, so it is not machine-readable from the contract.

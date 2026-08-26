@@ -1,23 +1,121 @@
 aid: pvcase
-name: Pvcase
-description: 'Pvcase is a company surfaced via the API Evangelist harvest backlog (source: secondary-market)
-  and added to the network as a stub for full-pipeline profiling.'
+name: PVcase
+description: >-
+  PVcase is a Lithuanian solar engineering software company building an end-to-end
+  platform for utility-scale and commercial photovoltaic project development, covering
+  site prospecting, land and grid screening, ground-mount and roof-mount PV layout
+  design, terrain-aware engineering and energy yield simulation. Its product family
+  includes PVcase Prospect (site selection, parcel and landowner data, interconnection
+  capacity and buildable-area analysis, built on the Anderson Optimization platform it
+  acquired in June 2023), PVcase Ground Mount and Roof Mount (AutoCAD-based PV layout
+  design), and PVcase Yield (energy simulation). The developer surface is narrow and
+  early: a beta REST API for PVcase Prospect, documented under "Advanced tools" in the
+  Prospect GitBook documentation as an Anderson Optimization API with an OpenAPI 3.0.3
+  description covering teams, projects and geospatial assets, offered to enterprise
+  customers alongside a read-only WMS layer and SSO.
+image: https://pvcase.com/favicon.ico
 url: https://raw.githubusercontent.com/api-evangelist/pvcase/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-26'
 modified: '2026-08-26'
 tags:
-- Company
-apis: []
+- Solar
+- Energy
+- Renewable Energy
+- Photovoltaic
+- Geospatial
+- Site Selection
+- Engineering Design
+- Simulation
+- Project Development
+- CAD
+apis:
+- aid: pvcase-prospect-api
+  name: PVcase Prospect API (Anderson Optimization API)
+  description: >-
+    Beta REST API for PVcase Prospect, published as the "Anderson Optimization API"
+    (OpenAPI 3.0.3, version 1.0.0-beta) in the PVcase Prospect documentation. It exposes
+    teams, companies, projects and geospatial assets (land parcels, substations,
+    transmission lines) including bulk query endpoints and XYZ vector-tile endpoints,
+    authenticated with HTTP Basic using an AO username and API token. PVcase documents
+    it as a "Future Offering" available to enterprise customers.
+  humanURL: https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering
+  baseURL: https://core-v1.carbon.prod.andersonopt.com
+  tags:
+  - Solar
+  - Geospatial
+  - Site Selection
+  properties:
+  - type: OpenAPI
+    url: openapi/pvcase-anderson-optimization-openapi.json
+  - type: Documentation
+    url: https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/api-technical-overview-future-offering
+  - type: APIReference
+    url: https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/api-reference-future-offering
+  - type: GettingStarted
+    url: https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/quick-start-future-offering
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: Authentication
+  url: authentication/pvcase-authentication.yml
+- type: DomainSecurity
+  url: security/pvcase-domain-security.yml
 - type: Website
-  url: https://www.hiive.com/securities/pvcase-stock
+  url: https://pvcase.com/
+- type: Documentation
+  url: https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation
+- type: APIReference
+  url: https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/api-reference-future-offering
+- type: GettingStarted
+  url: https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/quick-start-future-offering
+- type: Support
+  url: https://help.pvcase.com/hc/en-us
+- type: HelpCenter
+  url: https://help.pvcase.com/hc/en-us
+- type: Blog
+  url: https://pvcase.com/blog
+- type: Pricing
+  url: https://pvcase.com/pricing-plans
+- type: SignUp
+  url: https://prospect.pvcase.com/
+- type: PrivacyPolicy
+  url: https://pvcase.com/privacy-policy
+- type: TrustCenter
+  url: https://pvcase.com/trust-center
+- type: Compliance
+  url: https://pvcase.com/trust-center
+- type: LLMsTxt
+  url: llms/pvcase-llms.txt
+- type: Conventions
+  url: conventions/pvcase-conventions.yml
+- type: ErrorCatalog
+  url: errors/pvcase-problem-types.yml
+- type: Lifecycle
+  url: lifecycle/pvcase-lifecycle.yml
+- type: ChangeLog
+  url: changelog/pvcase-changelog.yml
+- type: RateLimits
+  url: rate-limits/pvcase-rate-limits.yml
+- type: Plans
+  url: plans/pvcase-plans-pricing.yml
+- type: Conformance
+  url: conformance/pvcase-conformance.yml
+- type: DataModel
+  url: data-model/pvcase-data-model.yml
+- type: AgentSkill
+  url: skills/_index.yml
+- type: Packages
+  url: packages/pvcase-packages.yml
+- type: Overlay
+  url: overlays/pvcase-anderson-optimization-overlay.yaml
+x-enrichment:
+  date: '2026-08-26'
+  status: enriched
+  artifacts_added: 21
+  pass: local-v1

@@ -1,0 +1,83 @@
+generated: '2026-08-26'
+method: searched
+source: >-
+  https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering
+  ; https://help.pvcase.com/hc/en-us/sections/46067717775251--Release-notes
+  ; openapi/pvcase-anderson-optimization-openapi.json ; live DNS/HTTP probes 2026-08-26
+api: PVcase Prospect API (Anderson Optimization API)
+maturity: beta
+maturity_evidence: >-
+  info.version is "1.0.0-beta" in the published OpenAPI, and every documentation page for
+  the API is titled "(Future Offering)". PVcase's own November product update describes the
+  REST API as "currently in its beta version". Pricing pages place API access at the
+  enterprise/sales-gated level.
+versioning:
+  policy_published: false
+  scheme: none
+  in_path: false
+  in_header: false
+  note: >-
+    Paths carry no version segment. The only declared version is info.version in the spec.
+    Version is expressed in the host name (core-v1, core-v2), which is not something a
+    client can negotiate.
+deprecation:
+  policy_published: false
+  sunset_header: false
+  deprecation_header: false
+  rfc8594: false
+  deprecated_operations: []
+  note: >-
+    No deprecation or sunset policy is published, and no operation in the spec carries
+    deprecated: true.
+status_page:
+  published: false
+  url: null
+  probes:
+  - url: https://status.pvcase.com/
+    status: '<no response> (DNS does not resolve)'
+  note: >-
+    No status page was found on any PVcase host. Incident communication appears to run
+    through the Zendesk help centre and support@pvcase.com.
+sla:
+  published: false
+  note: >-
+    No public SLA, uptime commitment or support-response target is published. Support terms
+    are described only as "dedicated support" in the enterprise pricing tier.
+changelog:
+  published: true
+  url: https://help.pvcase.com/hc/en-us/sections/46067717775251--Release-notes
+  scope: product release notes (all PVcase products), not API-specific
+  api_specific: false
+  see_also: changelog/pvcase-changelog.yml
+decay_signals:
+- signal: spec-server-host-does-not-resolve
+  severity: high
+  detail: >-
+    The published OpenAPI declares servers[0].url =
+    https://core-v1.carbon.prod.andersonopt.com. As probed on 2026-08-26 that hostname does
+    not resolve (NXDOMAIN) — a client following the spec verbatim cannot connect. The live
+    PVcase Prospect application configures its API against
+    https://core-v2.prod.andersonopt.com, which does resolve.
+  evidence:
+    dig core-v1.carbon.prod.andersonopt.com: no answer
+    dig core-v2.prod.andersonopt.com: 99.84.234.41 (and 3 more)
+- signal: docs-base-url-does-not-resolve
+  severity: high
+  detail: >-
+    The Quick Start page's curl/Node/Python samples all call
+    https://api.andersonopt.com/api/teams. As probed on 2026-08-26 api.andersonopt.com does
+    not resolve either, so neither of the two published base URLs is reachable.
+  evidence:
+    dig api.andersonopt.com: no answer
+- signal: base-url-disagreement
+  severity: medium
+  detail: >-
+    The spec's servers[] host and the documentation's code samples name two different
+    hosts (core-v1.carbon.prod.andersonopt.com vs api.andersonopt.com) with no note
+    explaining the difference.
+- signal: brand-lag
+  severity: low
+  detail: >-
+    Three years after the June 2023 acquisition the API is still titled "Anderson
+    Optimization API", the token endpoint is /auth/token on an andersonopt.com host, and the
+    technical overview still reads "the developer portal for Anderson Optimization".

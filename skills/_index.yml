@@ -1,0 +1,25 @@
+generated: '2026-08-26'
+method: generated
+source: openapi/pvcase-anderson-optimization-openapi.json
+api: PVcase Prospect API (Anderson Optimization API)
+note: >-
+  PVcase publishes no AGENTS.md and no provider-authored agent skills. These two are
+  generated from the published OpenAPI 3.0.3 description and the PVcase Prospect API
+  documentation. Both are deliberately read-only: the contract documents no idempotency key,
+  no dry-run and no reversal path for any of its 9 write operations, so no write skill is
+  offered.
+skills:
+- name: pvcase-screen-project-pipeline
+  file: pvcase-screen-project-pipeline.md
+  description: >-
+    Screen a solar development pipeline — teams, paged project queries, and the parcel /
+    substation / transmission-line assets attached to a project.
+  operations: 6
+  write_operations: 0
+- name: pvcase-inventory-grid-assets
+  file: pvcase-inventory-grid-assets.md
+  description: >-
+    Company-wide inventory of grid infrastructure using the company-scoped query and
+    vector-tile operations.
+  operations: 6
+  write_operations: 0

@@ -1,0 +1,46 @@
+generated: '2026-08-26'
+method: searched
+source: https://pvcase.com/pricing-plans ; https://pvcase.com/prospect/pricing-plans
+plan_count: 3
+currency: null
+billing_period: null
+pricing_model: sales-gated (named tiers published, no prices)
+plans:
+- name: Essentials
+  price: null
+  currency: null
+  period: null
+  quota: null
+  overage: null
+  api_access: false
+  note: >-
+    Entry tier for PVcase Prospect. Feature comparison table is published; no price is.
+- name: Professional
+  price: null
+  currency: null
+  period: null
+  quota: null
+  overage: null
+  api_access: false
+- name: Premium
+  price: null
+  currency: null
+  period: null
+  quota: null
+  overage: null
+  api_access: true
+  note: >-
+    API access is described on the group pricing page as an enterprise-level option
+    alongside custom integrations and dedicated support.
+api_access_note: >-
+  PVcase's pricing hub states pricing is "Adjusted to your organization's collaboration and
+  seat requirements", "Structured per solution", and that enterprise arrangements include
+  "API access, custom integrations, and dedicated support". No tier is priced publicly and
+  no self-serve signup path to the API exists — every route is "Talk to sales" /
+  "Request a demo". Per-product pricing pages exist for Prospect, Ground Mount, Roof Mount
+  and Yield, all with the same three named tiers and no figures.
+product_pricing_pages:
+- https://pvcase.com/prospect/pricing-plans
+- https://pvcase.com/ground-mount/pricing-plans
+- https://pvcase.com/roof-mount/pricing-plans
+- https://pvcase.com/yield/pricing-plans
