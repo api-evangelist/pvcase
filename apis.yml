@@ -32,30 +32,86 @@ tags:
 - Project Development
 - CAD
 apis:
-- aid: pvcase-prospect-api
-  name: PVcase Prospect API (Anderson Optimization API)
-  description: >-
-    Beta REST API for PVcase Prospect, published as the "Anderson Optimization API"
-    (OpenAPI 3.0.3, version 1.0.0-beta) in the PVcase Prospect documentation. It exposes
-    teams, companies, projects and geospatial assets (land parcels, substations,
-    transmission lines) including bulk query endpoints and XYZ vector-tile endpoints,
-    authenticated with HTTP Basic using an AO username and API token. PVcase documents
-    it as a "Future Offering" available to enterprise customers.
-  humanURL: https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering
+- aid: pvcase:pvcase-asset-api
+  name: PVcase Asset API
+  description: The Asset API from PVcase — 14 operation(s) for asset.
+  humanURL: >-
+    https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering
   baseURL: https://core-v1.carbon.prod.andersonopt.com
   tags:
-  - Solar
-  - Geospatial
-  - Site Selection
+  - Asset
   properties:
   - type: OpenAPI
-    url: openapi/pvcase-anderson-optimization-openapi.json
+    url: openapi/pvcase-asset-api-openapi.yml
   - type: Documentation
-    url: https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/api-technical-overview-future-offering
+    url: >-
+      https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/api-technical-overview-future-offering
   - type: APIReference
-    url: https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/api-reference-future-offering
+    url: >-
+      https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/api-reference-future-offering
   - type: GettingStarted
-    url: https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/quick-start-future-offering
+    url: >-
+      https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/quick-start-future-offering
+- aid: pvcase:pvcase-company-api
+  name: PVcase Company API
+  description: The Company API from PVcase — 9 operation(s) for company.
+  humanURL: >-
+    https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering
+  baseURL: https://core-v1.carbon.prod.andersonopt.com
+  tags:
+  - Company
+  properties:
+  - type: OpenAPI
+    url: openapi/pvcase-company-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/api-technical-overview-future-offering
+  - type: APIReference
+    url: >-
+      https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/api-reference-future-offering
+  - type: GettingStarted
+    url: >-
+      https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/quick-start-future-offering
+- aid: pvcase:pvcase-project-api
+  name: PVcase Project API
+  description: The Project API from PVcase — 12 operation(s) for project.
+  humanURL: >-
+    https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering
+  baseURL: https://core-v1.carbon.prod.andersonopt.com
+  tags:
+  - Project
+  properties:
+  - type: OpenAPI
+    url: openapi/pvcase-project-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/api-technical-overview-future-offering
+  - type: APIReference
+    url: >-
+      https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/api-reference-future-offering
+  - type: GettingStarted
+    url: >-
+      https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/quick-start-future-offering
+- aid: pvcase:pvcase-team-api
+  name: PVcase Team API
+  description: The Team API from PVcase — 2 operation(s) for team.
+  humanURL: >-
+    https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering
+  baseURL: https://core-v1.carbon.prod.andersonopt.com
+  tags:
+  - Team
+  properties:
+  - type: OpenAPI
+    url: openapi/pvcase-team-api-openapi.yml
+  - type: Documentation
+    url: >-
+      https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/api-technical-overview-future-offering
+  - type: APIReference
+    url: >-
+      https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/api-reference-future-offering
+  - type: GettingStarted
+    url: >-
+      https://pvcase-prospect.gitbook.io/pvcase-prospect-user-documentation/prospect/advanced-tools/api-future-offering/quick-start-future-offering
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
