@@ -13,6 +13,17 @@ description: >-
   Prospect GitBook documentation as an Anderson Optimization API with an OpenAPI 3.0.3
   description covering teams, projects and geospatial assets, offered to enterprise
   customers alongside a read-only WMS layer and SSO.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://pvcase.com/favicon.ico
 url: https://raw.githubusercontent.com/api-evangelist/pvcase/refs/heads/main/apis.yml
 x-type: company
