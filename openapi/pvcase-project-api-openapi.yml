@@ -1,0 +1,1812 @@
+openapi: 3.2.0
+info:
+  title: Anderson Optimization Project API
+  description: API to access AO resources
+  version: 1.0.0-beta
+servers:
+- url: https://core-v1.carbon.prod.andersonopt.com
+security:
+- basicAuth: []
+tags:
+- name: Project
+paths:
+  /api/companies/{cid}/projects/{z}/{x}/{y}:
+    get:
+      summary: Get Vector Tile
+      tags:
+      - Project
+      description: Retrieve Vector Tile for given coordinates company
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: cid
+        required: true
+        description: A unique identifier for a company
+      - schema:
+          type: number
+        in: path
+        name: x
+        required: true
+      - schema:
+          type: number
+        in: path
+        name: y
+        required: true
+      - schema:
+          type: number
+        in: path
+        name: z
+        required: true
+      responses:
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+    post:
+      summary: Query Vector Tile
+      tags:
+      - Project
+      description: Retrieve Vector Tile for given coordinates and company, filtered based on provided Query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: cid
+        required: true
+        description: A unique identifier for a company
+      - schema:
+          type: number
+        in: path
+        name: x
+        required: true
+      - schema:
+          type: number
+        in: path
+        name: y
+        required: true
+      - schema:
+          type: number
+        in: path
+        name: z
+        required: true
+      responses:
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/teams/{teamId}/projects/{projectId}:
+    get:
+      summary: Get Project
+      tags:
+      - Project
+      description: Retrieve a specific Project from a given team
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      - schema:
+          type: string
+        in: path
+        name: projectId
+        required: true
+        description: A unique identifier for a project. These project IDs are UUIDs generated by Anderson Optimization
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                    description: A unique identifier for an project. These project IDs are UUIDs generated by Anderson Optimization
+                  created:
+                    type: integer
+                    readOnly: true
+                    description: The Unix timestamp of when the project was created
+                  createdBy:
+                    type: string
+                    readOnly: true
+                    description: The user ID that created the project
+                  modified:
+                    type: integer
+                    readOnly: true
+                    description: The Unix timestamp of when the project was last modified
+                  modifiedBy:
+                    type: string
+                    readOnly: true
+                    description: The user ID that last modified the project
+                  meta:
+                    type: object
+                    readOnly: true
+                    description: The metadata for the project
+                    additionalProperties: true
+                  parameter:
+                    type: object
+                    description: Project specific data fields
+                    additionalProperties: true
+                  start:
+                    type: object
+                    readOnly: true
+                    description: Contains initial location values for the project, project name and descripton, and project metadata.
+                    additionalProperties: true
+                  rn:
+                    type: string
+                    readOnly: true
+                    description: The Resource Path of the Project
+                  type:
+                    type: string
+                    readOnly: true
+                    description: The type of project
+                  assets:
+                    type: object
+                    description: Basic Asset information for all assets associated with the project.
+                    additionalProperties: true
+                example:
+                  id: -N0rCjgIfcdviskTq
+                  created: 1588888888
+                  createdBy: user-id
+                  modified: 1588888888
+                  modifiedBy: user-id
+                  meta: {}
+                  parameter: {}
+                  start: {}
+                  rn: team/company-ny/project/-N0rCjgIfcdviskTq
+                  type: project:greenfieldoff
+                  assets: {}
+              example:
+                id: -N0rCjgIfcdviskTq
+                created: 1588888888
+                createdBy: user-id
+                modified: 1588888888
+                modifiedBy: user-id
+                meta: {}
+                parameter: {}
+                start: {}
+                rn: team/company-ny/project/-N0rCjgIfcdviskTq
+                type: project:greenfieldoff
+                assets: {}
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+    patch:
+      summary: Update Project
+      tags:
+      - Project
+      description: Update a specific Project on a given team from partial JSON
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                assets:
+                  type: object
+                  description: Basic Asset information for all assets associated with the project.
+                  additionalProperties: true
+                parameter:
+                  type: object
+                  description: Project specific data fields
+                  additionalProperties: true
+                start:
+                  type: object
+                  description: Contains initial location values for the project, project name and descripton, and project metadata.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      - schema:
+          type: string
+        in: path
+        name: projectId
+        required: true
+        description: A unique identifier for a project. These project IDs are UUIDs generated by Anderson Optimization
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                    description: A unique identifier for an project. These project IDs are UUIDs generated by Anderson Optimization
+                  created:
+                    type: integer
+                    readOnly: true
+                    description: The Unix timestamp of when the project was created
+                  createdBy:
+                    type: string
+                    readOnly: true
+                    description: The user ID that created the project
+                  modified:
+                    type: integer
+                    readOnly: true
+                    description: The Unix timestamp of when the project was last modified
+                  modifiedBy:
+                    type: string
+                    readOnly: true
+                    description: The user ID that last modified the project
+                  meta:
+                    type: object
+                    readOnly: true
+                    description: The metadata for the project
+                    additionalProperties: true
+                  parameter:
+                    type: object
+                    description: Project specific data fields
+                    additionalProperties: true
+                  start:
+                    type: object
+                    readOnly: true
+                    description: Contains initial location values for the project, project name and descripton, and project metadata.
+                    additionalProperties: true
+                  rn:
+                    type: string
+                    readOnly: true
+                    description: The Resource Path of the Project
+                  type:
+                    type: string
+                    readOnly: true
+                    description: The type of project
+                  assets:
+                    type: object
+                    description: Basic Asset information for all assets associated with the project.
+                    additionalProperties: true
+                example:
+                  id: -N0rCjgIfcdviskTq
+                  created: 1588888888
+                  createdBy: user-id
+                  modified: 1588888888
+                  modifiedBy: user-id
+                  meta: {}
+                  parameter: {}
+                  start: {}
+                  rn: team/company-ny/project/-N0rCjgIfcdviskTq
+                  type: project:greenfieldoff
+                  assets: {}
+              example:
+                id: -N0rCjgIfcdviskTq
+                created: 1588888888
+                createdBy: user-id
+                modified: 1588888888
+                modifiedBy: user-id
+                meta: {}
+                parameter: {}
+                start: {}
+                rn: team/company-ny/project/-N0rCjgIfcdviskTq
+                type: project:greenfieldoff
+                assets: {}
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+    delete:
+      summary: Delete Project
+      tags:
+      - Project
+      description: Delete a specific Project from a given team
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+      - schema:
+          type: string
+        in: path
+        name: projectId
+        required: true
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                    description: A unique identifier for an project. These project IDs are UUIDs generated by Anderson Optimization
+                  created:
+                    type: integer
+                    readOnly: true
+                    description: The Unix timestamp of when the project was created
+                  createdBy:
+                    type: string
+                    readOnly: true
+                    description: The user ID that created the project
+                  modified:
+                    type: integer
+                    readOnly: true
+                    description: The Unix timestamp of when the project was last modified
+                  modifiedBy:
+                    type: string
+                    readOnly: true
+                    description: The user ID that last modified the project
+                  meta:
+                    type: object
+                    readOnly: true
+                    description: The metadata for the project
+                    additionalProperties: true
+                  parameter:
+                    type: object
+                    description: Project specific data fields
+                    additionalProperties: true
+                  start:
+                    type: object
+                    readOnly: true
+                    description: Contains initial location values for the project, project name and descripton, and project metadata.
+                    additionalProperties: true
+                  rn:
+                    type: string
+                    readOnly: true
+                    description: The Resource Path of the Project
+                  type:
+                    type: string
+                    readOnly: true
+                    description: The type of project
+                  assets:
+                    type: object
+                    description: Basic Asset information for all assets associated with the project.
+                    additionalProperties: true
+                example:
+                  id: -N0rCjgIfcdviskTq
+                  created: 1588888888
+                  createdBy: user-id
+                  modified: 1588888888
+                  modifiedBy: user-id
+                  meta: {}
+                  parameter: {}
+                  start: {}
+                  rn: team/company-ny/project/-N0rCjgIfcdviskTq
+                  type: project:greenfieldoff
+                  assets: {}
+              example:
+                id: -N0rCjgIfcdviskTq
+                created: 1588888888
+                createdBy: user-id
+                modified: 1588888888
+                modifiedBy: user-id
+                meta: {}
+                parameter: {}
+                start: {}
+                rn: team/company-ny/project/-N0rCjgIfcdviskTq
+                type: project:greenfieldoff
+                assets: {}
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/teams/{teamId}/projects/{z}/{x}/{y}:
+    get:
+      summary: Get Vector Tile
+      tags:
+      - Project
+      description: Retrieve Vector Tile for given coordinates and team
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      - schema:
+          type: number
+        in: path
+        name: x
+        required: true
+      - schema:
+          type: number
+        in: path
+        name: y
+        required: true
+      - schema:
+          type: number
+        in: path
+        name: z
+        required: true
+      responses:
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+    post:
+      summary: Query Vector Tile
+      tags:
+      - Project
+      description: Retrieve Vector Tile for given coordinates and team, filtered based on provided Query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      - schema:
+          type: number
+        in: path
+        name: x
+        required: true
+      - schema:
+          type: number
+        in: path
+        name: y
+        required: true
+      - schema:
+          type: number
+        in: path
+        name: z
+        required: true
+      responses:
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/teams/{teamId}/projects:
+    get:
+      summary: Get All Projects
+      tags:
+      - Project
+      description: Retrieve all Projects from a given team
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  additionalProperties: false
+                  properties:
+                    id:
+                      type: string
+                      readOnly: true
+                      description: A unique identifier for an project. These project IDs are UUIDs generated by Anderson Optimization
+                    created:
+                      type: integer
+                      readOnly: true
+                      description: The Unix timestamp of when the project was created
+                    createdBy:
+                      type: string
+                      readOnly: true
+                      description: The user ID that created the project
+                    modified:
+                      type: integer
+                      readOnly: true
+                      description: The Unix timestamp of when the project was last modified
+                    modifiedBy:
+                      type: string
+                      readOnly: true
+                      description: The user ID that last modified the project
+                    meta:
+                      type: object
+                      readOnly: true
+                      description: The metadata for the project
+                      additionalProperties: true
+                    parameter:
+                      type: object
+                      description: Project specific data fields
+                      additionalProperties: true
+                    start:
+                      type: object
+                      readOnly: true
+                      description: Contains initial location values for the project, project name and descripton, and project metadata.
+                      additionalProperties: true
+                    rn:
+                      type: string
+                      readOnly: true
+                      description: The Resource Path of the Project
+                    type:
+                      type: string
+                      readOnly: true
+                      description: The type of project
+                    assets:
+                      type: object
+                      description: Basic Asset information for all assets associated with the project.
+                      additionalProperties: true
+                  title: projectOutputSchema
+                  example:
+                    id: -N0rCjgIfcdviskTq
+                    created: 1588888888
+                    createdBy: user-id
+                    modified: 1588888888
+                    modifiedBy: user-id
+                    meta: {}
+                    parameter: {}
+                    start: {}
+                    rn: team/company-ny/project/-N0rCjgIfcdviskTq
+                    type: project:greenfieldoff
+                    assets: {}
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/teams/{teamId}/projects/:
+    post:
+      summary: Create Project
+      tags:
+      - Project
+      description: Create a project on a given team
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                assets:
+                  type: object
+                  description: Basic Asset information for all assets associated with the project.
+                  additionalProperties: true
+                parameter:
+                  type: object
+                  description: Project specific data fields
+                  additionalProperties: true
+                start:
+                  type: object
+                  description: Contains initial location values for the project, project name and descripton, and project metadata.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      responses:
+        '201':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  id:
+                    type: string
+                    readOnly: true
+                    description: A unique identifier for an project. These project IDs are UUIDs generated by Anderson Optimization
+                  created:
+                    type: integer
+                    readOnly: true
+                    description: The Unix timestamp of when the project was created
+                  createdBy:
+                    type: string
+                    readOnly: true
+                    description: The user ID that created the project
+                  modified:
+                    type: integer
+                    readOnly: true
+                    description: The Unix timestamp of when the project was last modified
+                  modifiedBy:
+                    type: string
+                    readOnly: true
+                    description: The user ID that last modified the project
+                  meta:
+                    type: object
+                    readOnly: true
+                    description: The metadata for the project
+                    additionalProperties: true
+                  parameter:
+                    type: object
+                    description: Project specific data fields
+                    additionalProperties: true
+                  start:
+                    type: object
+                    readOnly: true
+                    description: Contains initial location values for the project, project name and descripton, and project metadata.
+                    additionalProperties: true
+                  rn:
+                    type: string
+                    readOnly: true
+                    description: The Resource Path of the Project
+                  type:
+                    type: string
+                    readOnly: true
+                    description: The type of project
+                  assets:
+                    type: object
+                    description: Basic Asset information for all assets associated with the project.
+                    additionalProperties: true
+                example:
+                  id: -N0rCjgIfcdviskTq
+                  created: 1588888888
+                  createdBy: user-id
+                  modified: 1588888888
+                  modifiedBy: user-id
+                  meta: {}
+                  parameter: {}
+                  start: {}
+                  rn: team/company-ny/project/-N0rCjgIfcdviskTq
+                  type: project:greenfieldoff
+                  assets: {}
+              example:
+                id: -N0rCjgIfcdviskTq
+                created: 1588888888
+                createdBy: user-id
+                modified: 1588888888
+                modifiedBy: user-id
+                meta: {}
+                parameter: {}
+                start: {}
+                rn: team/company-ny/project/-N0rCjgIfcdviskTq
+                type: project:greenfieldoff
+                assets: {}
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/projects/query:
+    post:
+      summary: Query Projects
+      tags:
+      - Project
+      description: Query for Projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/projects/query/column:
+    post:
+      summary: Distinct Column Values
+      tags:
+      - Project
+      description: Distinct Column Values
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      responses:
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/teams/{teamId}/projects/query:
+    post:
+      summary: Query Projects
+      tags:
+      - Project
+      description: Query for Projects for a given team
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/projects/query/favorite:
+    post:
+      summary: Query Projects, Favorites
+      tags:
+      - Project
+      description: Query for Favorited Projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/teams/{teamId}/projects/query/favorite:
+    post:
+      summary: Query Projects, Favorites
+      tags:
+      - Project
+      description: Query for Favorited Projects for a given team
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/projects/query/recent:
+    post:
+      summary: Query Projects, Recent
+      tags:
+      - Project
+      description: Query for Recently Viewed Projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/teams/{teamId}/projects/query/recent:
+    post:
+      summary: Query Projects, Recent
+      tags:
+      - Project
+      description: Query for Recently Viewed Projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: AO Username and API Token Authentication

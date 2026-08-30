@@ -1,0 +1,1027 @@
+openapi: 3.2.0
+info:
+  title: Anderson Optimization Company API
+  description: API to access AO resources
+  version: 1.0.0-beta
+servers:
+- url: https://core-v1.carbon.prod.andersonopt.com
+security:
+- basicAuth: []
+tags:
+- name: Company
+paths:
+  /api/companies/{cid}:
+    get:
+      summary: Get Company
+      tags:
+      - Company
+      description: Retrieve a specific company
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: cid
+        required: true
+        description: A unique identifier for a company
+      responses:
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/companies/{cid}/query:
+    post:
+      summary: Query Company
+      tags:
+      - Company
+      description: Query a company
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: cid
+        required: true
+        description: A unique identifier for a company
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/companies/{cid}/assets/query:
+    post:
+      summary: Query Company Assets
+      tags:
+      - Company
+      description: Query a company's assets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: cid
+        required: true
+        description: A unique identifier for a company
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/companies/{cid}/assets/query/project:
+    post:
+      summary: Query Company Assets, by Project
+      tags:
+      - Company
+      description: Query a company's assets, grouped by project
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: cid
+        required: true
+        description: A unique identifier for a company
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/companies/{cid}/assets/query/project/favorite:
+    post:
+      summary: Query Company Assets, by Favorited Projects
+      tags:
+      - Company
+      description: Query a company's assets, ordered by Favorited projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: cid
+        required: true
+        description: A unique identifier for a company
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/companies/{cid}/assets/query/project/recent:
+    post:
+      summary: Query Company Assets, by Recent Projects
+      tags:
+      - Company
+      description: Query a company's assets, ordered by Recent projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: cid
+        required: true
+        description: A unique identifier for a company
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/companies/{cid}/projects/query:
+    post:
+      summary: Query Company Projects
+      tags:
+      - Company
+      description: Query a company's projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: cid
+        required: true
+        description: A unique identifier for a company
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/companies/{cid}/projects/query/recent:
+    post:
+      summary: Query Company Projects, Recent
+      tags:
+      - Company
+      description: Query a company's projects, ordered by most recently accessed by the current user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: cid
+        required: true
+        description: A unique identifier for a company
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/companies/{cid}/projects/query/favorite:
+    post:
+      summary: Query Company Projects, Favorites
+      tags:
+      - Company
+      description: Query a company's projects, ordered by favorited projects by the current user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: cid
+        required: true
+        description: A unique identifier for a company
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: AO Username and API Token Authentication

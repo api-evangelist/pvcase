@@ -1,0 +1,522 @@
+openapi: 3.2.0
+info:
+  title: Anderson Optimization Team API
+  description: API to access AO resources
+  version: 1.0.0-beta
+servers:
+- url: https://core-v1.carbon.prod.andersonopt.com
+security:
+- basicAuth: []
+tags:
+- name: Team
+paths:
+  /api/teams/{teamId}:
+    get:
+      summary: Get Team
+      tags:
+      - Team
+      description: Get a given team
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      responses:
+        '200':
+          description: A team is a collection of assets that are associated with a specific company and state
+          content:
+            application/json:
+              schema:
+                type: object
+                description: A team is a collection of assets that are associated with a specific company and state
+                additionalProperties: false
+                properties:
+                  created:
+                    type: integer
+                    description: The Unix timestamp of when the Team was created
+                  createdBy:
+                    type: string
+                    description: The user ID that created the Team
+                  modified:
+                    type: integer
+                    description: The Unix timestamp of when the Team was last modified
+                  modifiedBy:
+                    type: string
+                    description: The user ID that last modified the Team
+                  meta:
+                    type: object
+                    description: The metadata for the Team
+                    additionalProperties: true
+                  member:
+                    type: object
+                    description: The members of the team
+                    additionalProperties: true
+                  parameter:
+                    type: object
+                    description: Team specific data fields
+                    additionalProperties: true
+                  rn:
+                    type: string
+                    description: The Resource Path of the Team
+                  type:
+                    type: string
+                    description: The type of Team
+                example:
+                  created: 1588888888
+                  createdBy: user-id
+                  modified: 1588888888
+                  modifiedBy: user-id
+                  meta: {}
+                  member: {}
+                  parameter: {}
+                  rn: team/company-ny
+                  type: team
+              example:
+                created: 1588888888
+                createdBy: user-id
+                modified: 1588888888
+                modifiedBy: user-id
+                meta: {}
+                member: {}
+                parameter: {}
+                rn: team/company-ny
+                type: team
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+    patch:
+      summary: Update Team
+      tags:
+      - Team
+      description: Update a given team from partial JSON
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                meta:
+                  type: object
+                  description: The metadata for the Team
+                  additionalProperties: true
+                member:
+                  type: object
+                  description: The members of the team
+                  additionalProperties: true
+                parameter:
+                  type: object
+                  description: Team specific data fields
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      responses:
+        '200':
+          description: A team is a collection of assets that are associated with a specific company and state
+          content:
+            application/json:
+              schema:
+                type: object
+                description: A team is a collection of assets that are associated with a specific company and state
+                additionalProperties: false
+                properties:
+                  created:
+                    type: integer
+                    description: The Unix timestamp of when the Team was created
+                  createdBy:
+                    type: string
+                    description: The user ID that created the Team
+                  modified:
+                    type: integer
+                    description: The Unix timestamp of when the Team was last modified
+                  modifiedBy:
+                    type: string
+                    description: The user ID that last modified the Team
+                  meta:
+                    type: object
+                    description: The metadata for the Team
+                    additionalProperties: true
+                  member:
+                    type: object
+                    description: The members of the team
+                    additionalProperties: true
+                  parameter:
+                    type: object
+                    description: Team specific data fields
+                    additionalProperties: true
+                  rn:
+                    type: string
+                    description: The Resource Path of the Team
+                  type:
+                    type: string
+                    description: The type of Team
+                example:
+                  created: 1588888888
+                  createdBy: user-id
+                  modified: 1588888888
+                  modifiedBy: user-id
+                  meta: {}
+                  member: {}
+                  parameter: {}
+                  rn: team/company-ny
+                  type: team
+              example:
+                created: 1588888888
+                createdBy: user-id
+                modified: 1588888888
+                modifiedBy: user-id
+                meta: {}
+                member: {}
+                parameter: {}
+                rn: team/company-ny
+                type: team
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+    delete:
+      summary: Delete Team
+      tags:
+      - Team
+      description: Delete a given team
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      responses:
+        '200':
+          description: A team is a collection of assets that are associated with a specific company and state
+          content:
+            application/json:
+              schema:
+                type: object
+                description: A team is a collection of assets that are associated with a specific company and state
+                additionalProperties: false
+                properties:
+                  created:
+                    type: integer
+                    description: The Unix timestamp of when the Team was created
+                  createdBy:
+                    type: string
+                    description: The user ID that created the Team
+                  modified:
+                    type: integer
+                    description: The Unix timestamp of when the Team was last modified
+                  modifiedBy:
+                    type: string
+                    description: The user ID that last modified the Team
+                  meta:
+                    type: object
+                    description: The metadata for the Team
+                    additionalProperties: true
+                  member:
+                    type: object
+                    description: The members of the team
+                    additionalProperties: true
+                  parameter:
+                    type: object
+                    description: Team specific data fields
+                    additionalProperties: true
+                  rn:
+                    type: string
+                    description: The Resource Path of the Team
+                  type:
+                    type: string
+                    description: The type of Team
+                example:
+                  created: 1588888888
+                  createdBy: user-id
+                  modified: 1588888888
+                  modifiedBy: user-id
+                  meta: {}
+                  member: {}
+                  parameter: {}
+                  rn: team/company-ny
+                  type: team
+              example:
+                created: 1588888888
+                createdBy: user-id
+                modified: 1588888888
+                modifiedBy: user-id
+                meta: {}
+                member: {}
+                parameter: {}
+                rn: team/company-ny
+                type: team
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/teams:
+    get:
+      summary: Get All Teams
+      tags:
+      - Team
+      description: Retrieve all user teams
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  description: A team is a collection of assets that are associated with a specific company and state
+                  additionalProperties: false
+                  properties:
+                    created:
+                      type: integer
+                      description: The Unix timestamp of when the Team was created
+                    createdBy:
+                      type: string
+                      description: The user ID that created the Team
+                    modified:
+                      type: integer
+                      description: The Unix timestamp of when the Team was last modified
+                    modifiedBy:
+                      type: string
+                      description: The user ID that last modified the Team
+                    meta:
+                      type: object
+                      description: The metadata for the Team
+                      additionalProperties: true
+                    member:
+                      type: object
+                      description: The members of the team
+                      additionalProperties: true
+                    parameter:
+                      type: object
+                      description: Team specific data fields
+                      additionalProperties: true
+                    rn:
+                      type: string
+                      description: The Resource Path of the Team
+                    type:
+                      type: string
+                      description: The type of Team
+                  example:
+                    created: 1588888888
+                    createdBy: user-id
+                    modified: 1588888888
+                    modifiedBy: user-id
+                    meta: {}
+                    member: {}
+                    parameter: {}
+                    rn: team/company-ny
+                    type: team
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+    post:
+      summary: Create Team
+      tags:
+      - Team
+      description: Create a team
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                meta:
+                  type: object
+                  description: The metadata for the Team
+                  additionalProperties: true
+                member:
+                  type: object
+                  description: The members of the team
+                  additionalProperties: true
+                parameter:
+                  type: object
+                  description: Team specific data fields
+                  additionalProperties: true
+      responses:
+        '201':
+          description: A team is a collection of assets that are associated with a specific company and state
+          content:
+            application/json:
+              schema:
+                type: object
+                description: A team is a collection of assets that are associated with a specific company and state
+                additionalProperties: false
+                properties:
+                  created:
+                    type: integer
+                    description: The Unix timestamp of when the Team was created
+                  createdBy:
+                    type: string
+                    description: The user ID that created the Team
+                  modified:
+                    type: integer
+                    description: The Unix timestamp of when the Team was last modified
+                  modifiedBy:
+                    type: string
+                    description: The user ID that last modified the Team
+                  meta:
+                    type: object
+                    description: The metadata for the Team
+                    additionalProperties: true
+                  member:
+                    type: object
+                    description: The members of the team
+                    additionalProperties: true
+                  parameter:
+                    type: object
+                    description: Team specific data fields
+                    additionalProperties: true
+                  rn:
+                    type: string
+                    description: The Resource Path of the Team
+                  type:
+                    type: string
+                    description: The type of Team
+                example:
+                  created: 1588888888
+                  createdBy: user-id
+                  modified: 1588888888
+                  modifiedBy: user-id
+                  meta: {}
+                  member: {}
+                  parameter: {}
+                  rn: team/company-ny
+                  type: team
+              example:
+                created: 1588888888
+                createdBy: user-id
+                modified: 1588888888
+                modifiedBy: user-id
+                meta: {}
+                member: {}
+                parameter: {}
+                rn: team/company-ny
+                type: team
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: AO Username and API Token Authentication

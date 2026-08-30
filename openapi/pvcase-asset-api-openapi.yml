@@ -1,0 +1,2366 @@
+openapi: 3.2.0
+info:
+  title: Anderson Optimization Asset API
+  description: API to access AO resources
+  version: 1.0.0-beta
+servers:
+- url: https://core-v1.carbon.prod.andersonopt.com
+security:
+- basicAuth: []
+tags:
+- name: Asset
+paths:
+  /api/companies/{cid}/assets/{z}/{x}/{y}:
+    get:
+      summary: Get Vector Tile
+      tags:
+      - Asset
+      description: Retrieve Vector Tile for given coordinates and company
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: filterType
+        required: false
+        description: The type of asset to performa prefix filter by
+      - schema:
+          type: string
+        in: path
+        name: cid
+        required: true
+        description: A unique identifier for a company
+      - schema:
+          type: number
+        in: path
+        name: x
+        required: true
+      - schema:
+          type: number
+        in: path
+        name: y
+        required: true
+      - schema:
+          type: number
+        in: path
+        name: z
+        required: true
+      responses:
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+    post:
+      summary: Query Vector Tile
+      tags:
+      - Asset
+      description: Retrieve Vector Tile for given coordinates and company, filtered based on provided Query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: filterType
+        required: false
+        description: The type of asset to performa prefix filter by
+      - schema:
+          type: string
+        in: path
+        name: cid
+        required: true
+        description: A unique identifier for a company
+      - schema:
+          type: number
+        in: path
+        name: x
+        required: true
+      - schema:
+          type: number
+        in: path
+        name: y
+        required: true
+      - schema:
+          type: number
+        in: path
+        name: z
+        required: true
+      responses:
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/teams/{teamId}/assets/{z}/{x}/{y}:
+    get:
+      summary: Get Vector Tile
+      tags:
+      - Asset
+      description: Retrieve Vector Tile for given coordinates and team
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: filterType
+        required: false
+        description: The type of asset to performa prefix filter by
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      - schema:
+          type: number
+        in: path
+        name: x
+        required: true
+      - schema:
+          type: number
+        in: path
+        name: y
+        required: true
+      - schema:
+          type: number
+        in: path
+        name: z
+        required: true
+      responses:
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+    post:
+      summary: Query Vector Tile
+      tags:
+      - Asset
+      description: Retrieve Vector Tile for given coordinates and team, filtered based on provided Query
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: query
+        name: filterType
+        required: false
+        description: The type of asset to performa prefix filter by
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      - schema:
+          type: number
+        in: path
+        name: x
+        required: true
+      - schema:
+          type: number
+        in: path
+        name: y
+        required: true
+      - schema:
+          type: number
+        in: path
+        name: z
+        required: true
+      responses:
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/teams/{teamId}/assets/{assetId}:
+    get:
+      summary: Get Asset
+      tags:
+      - Asset
+      description: Retrieve a specific asset from a given team
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      - schema:
+          type: string
+        in: path
+        name: assetId
+        required: true
+        description: A unique identifier for an asset. These asset IDs are UUIDs generated by Anderson Optimization
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  id:
+                    type: string
+                    description: A unique identifier for an asset. These asset IDs are UUIDs generated by Anderson Optimization
+                  created:
+                    type: integer
+                    description: The Unix timestamp of when the asset was created
+                  createdBy:
+                    type: string
+                    description: The user ID that created the asset
+                  modified:
+                    type: integer
+                    description: The Unix timestamp of when the asset was last modified
+                  modifiedBy:
+                    type: string
+                    description: The user ID that last modified the asset
+                  parameter:
+                    type: object
+                    description: "The data fields of the asset. This field changes depending on the type of asset. \n        To see what fields are available for a certain asset type, see the asset type's documentation."
+                    additionalProperties: true
+                  rn:
+                    type: string
+                    description: The Resource Path of the asset
+                  type:
+                    type: string
+                    description: The type of asset
+                example:
+                  id: -N4rjcCSgIfdqivskTuQ
+                  created: 1588888888
+                  createdBy: user-id
+                  modified: 1588888888
+                  modifiedBy: user-id
+                  parameter:
+                    address:
+                      address_line1: 123 Easy Street
+                      address_state: MI
+                      address_zip: '49123'
+                      name: DOE JOHN A JANE A
+                    general:
+                      county: Lake
+                      owner: DOE JOHN A & JANE A H/W
+                      ownerGroup: Person
+                      primaryFirstName: JOHN
+                      primaryLastName: DOE
+                      primaryOwner: JOHN A DOE
+                      primaryRealConfidence: 1
+                      secondaryFirstName: JANE
+                      secondaryLastName: DOE
+                      secondaryOwner: JANE A DOE
+                      secondaryRealConfidence: 0.0001
+                      state: MI
+                      zip: '49123'
+                    land:
+                      acreage_calc: '40.88'
+                      acreage_deeded: '0.0000'
+                      buildable-acre: 13.2
+                      buildable-relative: 0.324
+                      census_zip: '49123'
+                      cid: 26085
+                      county_id: 26085
+                      county_name: Lake
+                      critical_habitat_joint: 0
+                      critical_habitat_joint-acre: 0
+                      description: 'Acreage Deeded: 0.0000'
+                      elevation: '754.992465892697'
+                      last_updated: 2022-Q2
+                      muni_id: 1627044
+                      muni_name: Sauble
+                      owner_occupied: true
+                      pad_us: 0.001
+                      pad_us-acre: 0.1
+                      pin: 05-008-012-01
+                      rausa_id: 9647
+                      robust_id: ABC1234ABC
+                      school_dist_id: 2603810
+                      size: 40.88
+                      size-units: units:area:acre
+                      slope: 0.667
+                      slope-acre: 27.2
+                    location:
+                      lat: 44.0525101145496
+                      long: -86.0000790914652
+                      wkt: MULTIPOLYGON(((-86.0027202197595 44.0505632143398,-86.0022985433786 44.0542794342862,-85.9973212559687 44.0542321651908,-85.9977187559903 44.0505075715096,-85.9984022706153 44.0505161230584,-86.0027202197595 44.0505632143398)))
+                    mailaddress:
+                      address_city: Townsville
+                      address_line1: 123 EASY Street
+                      address_state: MI
+                      address_zip: '49123'
+                    name:
+                      description: This is an API example Parcel Asset
+                      name: Doe John A Jane A - 40.88
+                  rn: team/ao-co/assets/-N4rjcCSgIfdqivskTuQ
+                  type: asset:land:off
+              example:
+                id: -N4rjcCSgIfdqivskTuQ
+                created: 1588888888
+                createdBy: user-id
+                modified: 1588888888
+                modifiedBy: user-id
+                parameter:
+                  address:
+                    address_line1: 123 Easy Street
+                    address_state: MI
+                    address_zip: '49123'
+                    name: DOE JOHN A JANE A
+                  general:
+                    county: Lake
+                    owner: DOE JOHN A & JANE A H/W
+                    ownerGroup: Person
+                    primaryFirstName: JOHN
+                    primaryLastName: DOE
+                    primaryOwner: JOHN A DOE
+                    primaryRealConfidence: 1
+                    secondaryFirstName: JANE
+                    secondaryLastName: DOE
+                    secondaryOwner: JANE A DOE
+                    secondaryRealConfidence: 0.0001
+                    state: MI
+                    zip: '49123'
+                  land:
+                    acreage_calc: '40.88'
+                    acreage_deeded: '0.0000'
+                    buildable-acre: 13.2
+                    buildable-relative: 0.324
+                    census_zip: '49123'
+                    cid: 26085
+                    county_id: 26085
+                    county_name: Lake
+                    critical_habitat_joint: 0
+                    critical_habitat_joint-acre: 0
+                    description: 'Acreage Deeded: 0.0000'
+                    elevation: '754.992465892697'
+                    last_updated: 2022-Q2
+                    muni_id: 1627044
+                    muni_name: Sauble
+                    owner_occupied: true
+                    pad_us: 0.001
+                    pad_us-acre: 0.1
+                    pin: 05-008-012-01
+                    rausa_id: 9647
+                    robust_id: ABC1234ABC
+                    school_dist_id: 2603810
+                    size: 40.88
+                    size-units: units:area:acre
+                    slope: 0.667
+                    slope-acre: 27.2
+                  location:
+                    lat: 44.0525101145496
+                    long: -86.0000790914652
+                    wkt: MULTIPOLYGON(((-86.0027202197595 44.0505632143398,-86.0022985433786 44.0542794342862,-85.9973212559687 44.0542321651908,-85.9977187559903 44.0505075715096,-85.9984022706153 44.0505161230584,-86.0027202197595 44.0505632143398)))
+                  mailaddress:
+                    address_city: Townsville
+                    address_line1: 123 EASY Street
+                    address_state: MI
+                    address_zip: '49123'
+                  name:
+                    description: This is an API example Parcel Asset
+                    name: Doe John A Jane A - 40.88
+                rn: team/ao-co/assets/-N4rjcCSgIfdqivskTuQ
+                type: asset:land:off
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+    patch:
+      summary: Update Asset
+      tags:
+      - Asset
+      description: Update a specific asset from a given team from partial JSON
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties: false
+              properties:
+                parameter:
+                  type: object
+                  description: "The data fields of the asset. This field changes depending on the type of asset. \n        To see what fields are available for a certain asset type, see the asset type's documentation."
+                  additionalProperties: true
+              example:
+                parameter:
+                  address:
+                    address_line1: 123 Easy Street
+                    address_state: MI
+                    address_zip: '49123'
+                    name: DOE JOHN A JANE A
+                  general:
+                    county: Lake
+                    owner: DOE JOHN A & JANE A H/W
+                    ownerGroup: Person
+                    primaryFirstName: JOHN
+                    primaryLastName: DOE
+                    primaryOwner: JOHN A DOE
+                    primaryRealConfidence: 1
+                    secondaryFirstName: JANE
+                    secondaryLastName: DOE
+                    secondaryOwner: JANE A DOE
+                    secondaryRealConfidence: 0.0001
+                    state: MI
+                    zip: '49123'
+                  land:
+                    acreage_calc: '40.88'
+                    acreage_deeded: '0.0000'
+                    buildable-acre: 13.2
+                    buildable-relative: 0.324
+                    census_zip: '49123'
+                    cid: 26085
+                    county_id: 26085
+                    county_name: Lake
+                    critical_habitat_joint: 0
+                    critical_habitat_joint-acre: 0
+                    description: 'Acreage Deeded: 0.0000'
+                    elevation: '754.992465892697'
+                    last_updated: 2022-Q2
+                    muni_id: 1627044
+                    muni_name: Sauble
+                    owner_occupied: true
+                    pad_us: 0.001
+                    pad_us-acre: 0.1
+                    pin: 05-008-012-01
+                    rausa_id: 9647
+                    robust_id: ABC1234ABC
+                    school_dist_id: 2603810
+                    size: 40.88
+                    size-units: units:area:acre
+                    slope: 0.667
+                    slope-acre: 27.2
+                  location:
+                    lat: 44.0525101145496
+                    long: -86.0000790914652
+                    wkt: MULTIPOLYGON(((-86.0027202197595 44.0505632143398,-86.0022985433786 44.0542794342862,-85.9973212559687 44.0542321651908,-85.9977187559903 44.0505075715096,-85.9984022706153 44.0505161230584,-86.0027202197595 44.0505632143398)))
+                  mailaddress:
+                    address_city: Townsville
+                    address_line1: 123 EASY Street
+                    address_state: MI
+                    address_zip: '49123'
+                  name:
+                    description: This is an API example Parcel Asset
+                    name: Doe John A Jane A - 40.88
+            example:
+              parameter:
+                address:
+                  address_line1: 123 Easy Street
+                  address_state: MI
+                  address_zip: '49123'
+                  name: DOE JOHN A JANE A
+                general:
+                  county: Lake
+                  owner: DOE JOHN A & JANE A H/W
+                  ownerGroup: Person
+                  primaryFirstName: JOHN
+                  primaryLastName: DOE
+                  primaryOwner: JOHN A DOE
+                  primaryRealConfidence: 1
+                  secondaryFirstName: JANE
+                  secondaryLastName: DOE
+                  secondaryOwner: JANE A DOE
+                  secondaryRealConfidence: 0.0001
+                  state: MI
+                  zip: '49123'
+                land:
+                  acreage_calc: '40.88'
+                  acreage_deeded: '0.0000'
+                  buildable-acre: 13.2
+                  buildable-relative: 0.324
+                  census_zip: '49123'
+                  cid: 26085
+                  county_id: 26085
+                  county_name: Lake
+                  critical_habitat_joint: 0
+                  critical_habitat_joint-acre: 0
+                  description: 'Acreage Deeded: 0.0000'
+                  elevation: '754.992465892697'
+                  last_updated: 2022-Q2
+                  muni_id: 1627044
+                  muni_name: Sauble
+                  owner_occupied: true
+                  pad_us: 0.001
+                  pad_us-acre: 0.1
+                  pin: 05-008-012-01
+                  rausa_id: 9647
+                  robust_id: ABC1234ABC
+                  school_dist_id: 2603810
+                  size: 40.88
+                  size-units: units:area:acre
+                  slope: 0.667
+                  slope-acre: 27.2
+                location:
+                  lat: 44.0525101145496
+                  long: -86.0000790914652
+                  wkt: MULTIPOLYGON(((-86.0027202197595 44.0505632143398,-86.0022985433786 44.0542794342862,-85.9973212559687 44.0542321651908,-85.9977187559903 44.0505075715096,-85.9984022706153 44.0505161230584,-86.0027202197595 44.0505632143398)))
+                mailaddress:
+                  address_city: Townsville
+                  address_line1: 123 EASY Street
+                  address_state: MI
+                  address_zip: '49123'
+                name:
+                  description: This is an API example Parcel Asset
+                  name: Doe John A Jane A - 40.88
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      - schema:
+          type: string
+        in: path
+        name: assetId
+        required: true
+        description: A unique identifier for an asset. These asset IDs are UUIDs generated by Anderson Optimization
+      responses:
+        '200':
+          description: Asset updated
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Asset updated
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+    delete:
+      summary: Delete Asset
+      tags:
+      - Asset
+      description: Delete a specific asset from a given team
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      - schema:
+          type: string
+        in: path
+        name: assetId
+        required: true
+        description: A unique identifier for an asset. These asset IDs are UUIDs generated by Anderson Optimization
+      responses:
+        '200':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  id:
+                    type: string
+                    description: A unique identifier for an asset. These asset IDs are UUIDs generated by Anderson Optimization
+                  created:
+                    type: integer
+                    description: The Unix timestamp of when the asset was created
+                  createdBy:
+                    type: string
+                    description: The user ID that created the asset
+                  modified:
+                    type: integer
+                    description: The Unix timestamp of when the asset was last modified
+                  modifiedBy:
+                    type: string
+                    description: The user ID that last modified the asset
+                  parameter:
+                    type: object
+                    description: "The data fields of the asset. This field changes depending on the type of asset. \n        To see what fields are available for a certain asset type, see the asset type's documentation."
+                    additionalProperties: true
+                  rn:
+                    type: string
+                    description: The Resource Path of the asset
+                  type:
+                    type: string
+                    description: The type of asset
+                example:
+                  id: -N4rjcCSgIfdqivskTuQ
+                  created: 1588888888
+                  createdBy: user-id
+                  modified: 1588888888
+                  modifiedBy: user-id
+                  parameter:
+                    address:
+                      address_line1: 123 Easy Street
+                      address_state: MI
+                      address_zip: '49123'
+                      name: DOE JOHN A JANE A
+                    general:
+                      county: Lake
+                      owner: DOE JOHN A & JANE A H/W
+                      ownerGroup: Person
+                      primaryFirstName: JOHN
+                      primaryLastName: DOE
+                      primaryOwner: JOHN A DOE
+                      primaryRealConfidence: 1
+                      secondaryFirstName: JANE
+                      secondaryLastName: DOE
+                      secondaryOwner: JANE A DOE
+                      secondaryRealConfidence: 0.0001
+                      state: MI
+                      zip: '49123'
+                    land:
+                      acreage_calc: '40.88'
+                      acreage_deeded: '0.0000'
+                      buildable-acre: 13.2
+                      buildable-relative: 0.324
+                      census_zip: '49123'
+                      cid: 26085
+                      county_id: 26085
+                      county_name: Lake
+                      critical_habitat_joint: 0
+                      critical_habitat_joint-acre: 0
+                      description: 'Acreage Deeded: 0.0000'
+                      elevation: '754.992465892697'
+                      last_updated: 2022-Q2
+                      muni_id: 1627044
+                      muni_name: Sauble
+                      owner_occupied: true
+                      pad_us: 0.001
+                      pad_us-acre: 0.1
+                      pin: 05-008-012-01
+                      rausa_id: 9647
+                      robust_id: ABC1234ABC
+                      school_dist_id: 2603810
+                      size: 40.88
+                      size-units: units:area:acre
+                      slope: 0.667
+                      slope-acre: 27.2
+                    location:
+                      lat: 44.0525101145496
+                      long: -86.0000790914652
+                      wkt: MULTIPOLYGON(((-86.0027202197595 44.0505632143398,-86.0022985433786 44.0542794342862,-85.9973212559687 44.0542321651908,-85.9977187559903 44.0505075715096,-85.9984022706153 44.0505161230584,-86.0027202197595 44.0505632143398)))
+                    mailaddress:
+                      address_city: Townsville
+                      address_line1: 123 EASY Street
+                      address_state: MI
+                      address_zip: '49123'
+                    name:
+                      description: This is an API example Parcel Asset
+                      name: Doe John A Jane A - 40.88
+                  rn: team/ao-co/assets/-N4rjcCSgIfdqivskTuQ
+                  type: asset:land:off
+              example:
+                id: -N4rjcCSgIfdqivskTuQ
+                created: 1588888888
+                createdBy: user-id
+                modified: 1588888888
+                modifiedBy: user-id
+                parameter:
+                  address:
+                    address_line1: 123 Easy Street
+                    address_state: MI
+                    address_zip: '49123'
+                    name: DOE JOHN A JANE A
+                  general:
+                    county: Lake
+                    owner: DOE JOHN A & JANE A H/W
+                    ownerGroup: Person
+                    primaryFirstName: JOHN
+                    primaryLastName: DOE
+                    primaryOwner: JOHN A DOE
+                    primaryRealConfidence: 1
+                    secondaryFirstName: JANE
+                    secondaryLastName: DOE
+                    secondaryOwner: JANE A DOE
+                    secondaryRealConfidence: 0.0001
+                    state: MI
+                    zip: '49123'
+                  land:
+                    acreage_calc: '40.88'
+                    acreage_deeded: '0.0000'
+                    buildable-acre: 13.2
+                    buildable-relative: 0.324
+                    census_zip: '49123'
+                    cid: 26085
+                    county_id: 26085
+                    county_name: Lake
+                    critical_habitat_joint: 0
+                    critical_habitat_joint-acre: 0
+                    description: 'Acreage Deeded: 0.0000'
+                    elevation: '754.992465892697'
+                    last_updated: 2022-Q2
+                    muni_id: 1627044
+                    muni_name: Sauble
+                    owner_occupied: true
+                    pad_us: 0.001
+                    pad_us-acre: 0.1
+                    pin: 05-008-012-01
+                    rausa_id: 9647
+                    robust_id: ABC1234ABC
+                    school_dist_id: 2603810
+                    size: 40.88
+                    size-units: units:area:acre
+                    slope: 0.667
+                    slope-acre: 27.2
+                  location:
+                    lat: 44.0525101145496
+                    long: -86.0000790914652
+                    wkt: MULTIPOLYGON(((-86.0027202197595 44.0505632143398,-86.0022985433786 44.0542794342862,-85.9973212559687 44.0542321651908,-85.9977187559903 44.0505075715096,-85.9984022706153 44.0505161230584,-86.0027202197595 44.0505632143398)))
+                  mailaddress:
+                    address_city: Townsville
+                    address_line1: 123 EASY Street
+                    address_state: MI
+                    address_zip: '49123'
+                  name:
+                    description: This is an API example Parcel Asset
+                    name: Doe John A Jane A - 40.88
+                rn: team/ao-co/assets/-N4rjcCSgIfdqivskTuQ
+                type: asset:land:off
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '404':
+          description: Resource not found
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Resource not found
+                example: Resource not found
+              example: Resource not found
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/teams/{teamId}/assets:
+    post:
+      summary: Create Asset
+      tags:
+      - Asset
+      description: Create an Asset for a given team
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      responses:
+        '201':
+          description: Default Response
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: false
+                properties:
+                  id:
+                    type: string
+                    description: A unique identifier for an asset. These asset IDs are UUIDs generated by Anderson Optimization
+                  created:
+                    type: integer
+                    description: The Unix timestamp of when the asset was created
+                  createdBy:
+                    type: string
+                    description: The user ID that created the asset
+                  modified:
+                    type: integer
+                    description: The Unix timestamp of when the asset was last modified
+                  modifiedBy:
+                    type: string
+                    description: The user ID that last modified the asset
+                  parameter:
+                    type: object
+                    description: "The data fields of the asset. This field changes depending on the type of asset. \n        To see what fields are available for a certain asset type, see the asset type's documentation."
+                    additionalProperties: true
+                  rn:
+                    type: string
+                    description: The Resource Path of the asset
+                  type:
+                    type: string
+                    description: The type of asset
+                example:
+                  id: -N4rjcCSgIfdqivskTuQ
+                  created: 1588888888
+                  createdBy: user-id
+                  modified: 1588888888
+                  modifiedBy: user-id
+                  parameter:
+                    address:
+                      address_line1: 123 Easy Street
+                      address_state: MI
+                      address_zip: '49123'
+                      name: DOE JOHN A JANE A
+                    general:
+                      county: Lake
+                      owner: DOE JOHN A & JANE A H/W
+                      ownerGroup: Person
+                      primaryFirstName: JOHN
+                      primaryLastName: DOE
+                      primaryOwner: JOHN A DOE
+                      primaryRealConfidence: 1
+                      secondaryFirstName: JANE
+                      secondaryLastName: DOE
+                      secondaryOwner: JANE A DOE
+                      secondaryRealConfidence: 0.0001
+                      state: MI
+                      zip: '49123'
+                    land:
+                      acreage_calc: '40.88'
+                      acreage_deeded: '0.0000'
+                      buildable-acre: 13.2
+                      buildable-relative: 0.324
+                      census_zip: '49123'
+                      cid: 26085
+                      county_id: 26085
+                      county_name: Lake
+                      critical_habitat_joint: 0
+                      critical_habitat_joint-acre: 0
+                      description: 'Acreage Deeded: 0.0000'
+                      elevation: '754.992465892697'
+                      last_updated: 2022-Q2
+                      muni_id: 1627044
+                      muni_name: Sauble
+                      owner_occupied: true
+                      pad_us: 0.001
+                      pad_us-acre: 0.1
+                      pin: 05-008-012-01
+                      rausa_id: 9647
+                      robust_id: ABC1234ABC
+                      school_dist_id: 2603810
+                      size: 40.88
+                      size-units: units:area:acre
+                      slope: 0.667
+                      slope-acre: 27.2
+                    location:
+                      lat: 44.0525101145496
+                      long: -86.0000790914652
+                      wkt: MULTIPOLYGON(((-86.0027202197595 44.0505632143398,-86.0022985433786 44.0542794342862,-85.9973212559687 44.0542321651908,-85.9977187559903 44.0505075715096,-85.9984022706153 44.0505161230584,-86.0027202197595 44.0505632143398)))
+                    mailaddress:
+                      address_city: Townsville
+                      address_line1: 123 EASY Street
+                      address_state: MI
+                      address_zip: '49123'
+                    name:
+                      description: This is an API example Parcel Asset
+                      name: Doe John A Jane A - 40.88
+                  rn: team/ao-co/assets/-N4rjcCSgIfdqivskTuQ
+                  type: asset:land:off
+              example:
+                id: -N4rjcCSgIfdqivskTuQ
+                created: 1588888888
+                createdBy: user-id
+                modified: 1588888888
+                modifiedBy: user-id
+                parameter:
+                  address:
+                    address_line1: 123 Easy Street
+                    address_state: MI
+                    address_zip: '49123'
+                    name: DOE JOHN A JANE A
+                  general:
+                    county: Lake
+                    owner: DOE JOHN A & JANE A H/W
+                    ownerGroup: Person
+                    primaryFirstName: JOHN
+                    primaryLastName: DOE
+                    primaryOwner: JOHN A DOE
+                    primaryRealConfidence: 1
+                    secondaryFirstName: JANE
+                    secondaryLastName: DOE
+                    secondaryOwner: JANE A DOE
+                    secondaryRealConfidence: 0.0001
+                    state: MI
+                    zip: '49123'
+                  land:
+                    acreage_calc: '40.88'
+                    acreage_deeded: '0.0000'
+                    buildable-acre: 13.2
+                    buildable-relative: 0.324
+                    census_zip: '49123'
+                    cid: 26085
+                    county_id: 26085
+                    county_name: Lake
+                    critical_habitat_joint: 0
+                    critical_habitat_joint-acre: 0
+                    description: 'Acreage Deeded: 0.0000'
+                    elevation: '754.992465892697'
+                    last_updated: 2022-Q2
+                    muni_id: 1627044
+                    muni_name: Sauble
+                    owner_occupied: true
+                    pad_us: 0.001
+                    pad_us-acre: 0.1
+                    pin: 05-008-012-01
+                    rausa_id: 9647
+                    robust_id: ABC1234ABC
+                    school_dist_id: 2603810
+                    size: 40.88
+                    size-units: units:area:acre
+                    slope: 0.667
+                    slope-acre: 27.2
+                  location:
+                    lat: 44.0525101145496
+                    long: -86.0000790914652
+                    wkt: MULTIPOLYGON(((-86.0027202197595 44.0505632143398,-86.0022985433786 44.0542794342862,-85.9973212559687 44.0542321651908,-85.9977187559903 44.0505075715096,-85.9984022706153 44.0505161230584,-86.0027202197595 44.0505632143398)))
+                  mailaddress:
+                    address_city: Townsville
+                    address_line1: 123 EASY Street
+                    address_state: MI
+                    address_zip: '49123'
+                  name:
+                    description: This is an API example Parcel Asset
+                    name: Doe John A Jane A - 40.88
+                rn: team/ao-co/assets/-N4rjcCSgIfdqivskTuQ
+                type: asset:land:off
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/assets/query:
+    post:
+      summary: Query Assets
+      tags:
+      - Asset
+      description: Query assets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/assets/query/column:
+    post:
+      summary: Distinct Column Values
+      tags:
+      - Asset
+      description: Populate Distinct Values for a Column based on current Query Filter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      responses:
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/assets/query/project:
+    post:
+      summary: Query Assets
+      tags:
+      - Asset
+      description: Query assets grouped by project
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/assets/query/project/column:
+    post:
+      summary: Distinct Column Values
+      tags:
+      - Asset
+      description: Populate Distinct Values for a Column based on current Query Filter
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/teams/{teamId}/assets/query:
+    post:
+      summary: Query Assets
+      tags:
+      - Asset
+      description: Query for Assets for a given team
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/teams/{teamId}/assets/query/project:
+    post:
+      summary: Query Assets
+      tags:
+      - Asset
+      description: Query for Assets for a given team, Grouped by Project
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/assets/query/project/recent:
+    post:
+      summary: Query Assets
+      tags:
+      - Asset
+      description: Query for Assets, Grouped by recently accessed Projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/teams/{teamId}/assets/query/project/recent:
+    post:
+      summary: Query Assets
+      tags:
+      - Asset
+      description: Query for Assets for a given team, Grouped by recently accessed Projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/assets/query/project/favorite:
+    post:
+      summary: Query Assets
+      tags:
+      - Asset
+      description: Query for Assets, Grouped by Favorited Projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+  /api/teams/{teamId}/assets/query/project/favorite:
+    post:
+      summary: Query Assets
+      tags:
+      - Asset
+      description: Query for Assets for a given team, Grouped by Favorited Projects
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              description: The body to query resources
+              properties:
+                rowGroupCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                valueCols:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: string
+                      displayName:
+                        type: string
+                      field:
+                        type: string
+                      aggFunc:
+                        type: string
+                sortModel:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      colId:
+                        type: string
+                      sort:
+                        type: string
+                        enum:
+                        - asc
+                        - desc
+                groupKeys:
+                  type: array
+                  items:
+                    type: string
+                filterModel:
+                  type: object
+                  additionalProperties:
+                    type: object
+                    properties:
+                      filterType:
+                        type: string
+                      type:
+                        type: string
+                      filter:
+                        type: string
+                      filterTo:
+                        type: string
+                      operator:
+                        type: string
+                startRow:
+                  type: integer
+                endRow:
+                  type: integer
+                setColumn:
+                  type: string
+                projectQuery:
+                  type: object
+                  description: The Project Query to be applied on Asset queries.
+                  additionalProperties: true
+      parameters:
+      - schema:
+          type: string
+        in: path
+        name: teamId
+        required: true
+        description: A unique identifier for a team, typically in the format of "<company-name>-<state-name>"
+      responses:
+        '200':
+          description: The output of a query
+          content:
+            application/json:
+              schema:
+                type: object
+                description: The output of a query
+                properties:
+                  rowData:
+                    type: array
+                    items:
+                      type: object
+                      additionalProperties: true
+                  totalCount:
+                    type: integer
+        '401':
+          description: Authorization unsuccessful. See error message for more details
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Authorization unsuccessful. See error message for more details
+                example: Requires Authentication
+              example: Requires Authentication
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                type: string
+                description: Internal server error
+                example: Internal server error
+              example: Internal server error
+components:
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+      description: AO Username and API Token Authentication
