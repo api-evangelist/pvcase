@@ -66,6 +66,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: getApiCompaniesByCidProjectsByZByXByY
+      x-operation-id-source: derived
     post:
       summary: Query Vector Tile
       tags:
@@ -195,6 +197,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiCompaniesByCidProjectsByZByXByY
+      x-operation-id-source: derived
   /api/teams/{teamId}/projects/{projectId}:
     get:
       summary: Get Project
@@ -320,6 +324,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: getApiTeamsByTeamIdProjectsByProjectId
+      x-operation-id-source: derived
     patch:
       summary: Update Project
       tags:
@@ -454,6 +460,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: patchApiTeamsByTeamIdProjectsByProjectId
+      x-operation-id-source: derived
     delete:
       summary: Delete Project
       tags:
@@ -576,6 +584,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: deleteApiTeamsByTeamIdProjectsByProjectId
+      x-operation-id-source: derived
   /api/teams/{teamId}/projects/{z}/{x}/{y}:
     get:
       summary: Get Vector Tile
@@ -632,6 +642,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: getApiTeamsByTeamIdProjectsByZByXByY
+      x-operation-id-source: derived
     post:
       summary: Query Vector Tile
       tags:
@@ -761,6 +773,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiTeamsByTeamIdProjectsByZByXByY
+      x-operation-id-source: derived
   /api/teams/{teamId}/projects:
     get:
       summary: Get All Projects
@@ -871,6 +885,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: getApiTeamsByTeamIdProjects
+      x-operation-id-source: derived
   /api/teams/{teamId}/projects/:
     post:
       summary: Create Project
@@ -1000,6 +1016,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiTeamsByTeamIdProjects
+      x-operation-id-source: derived
   /api/projects/query:
     post:
       summary: Query Projects
@@ -1114,12 +1132,13 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiProjectsQuery
+      x-operation-id-source: derived
   /api/projects/query/column:
     post:
       summary: Distinct Column Values
       tags:
       - Project
-      description: Distinct Column Values
       requestBody:
         content:
           application/json:
@@ -1213,6 +1232,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiProjectsQueryColumn
+      x-operation-id-source: derived
   /api/teams/{teamId}/projects/query:
     post:
       summary: Query Projects
@@ -1334,6 +1355,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiTeamsByTeamIdProjectsQuery
+      x-operation-id-source: derived
   /api/projects/query/favorite:
     post:
       summary: Query Projects, Favorites
@@ -1448,6 +1471,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiProjectsQueryFavorite
+      x-operation-id-source: derived
   /api/teams/{teamId}/projects/query/favorite:
     post:
       summary: Query Projects, Favorites
@@ -1569,6 +1594,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiTeamsByTeamIdProjectsQueryFavorite
+      x-operation-id-source: derived
   /api/projects/query/recent:
     post:
       summary: Query Projects, Recent
@@ -1683,6 +1710,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiProjectsQueryRecent
+      x-operation-id-source: derived
   /api/teams/{teamId}/projects/query/recent:
     post:
       summary: Query Projects, Recent
@@ -1804,6 +1833,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiTeamsByTeamIdProjectsQueryRecent
+      x-operation-id-source: derived
 components:
   securitySchemes:
     basicAuth:

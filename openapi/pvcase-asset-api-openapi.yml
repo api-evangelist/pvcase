@@ -72,6 +72,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: getApiCompaniesByCidAssetsByZByXByY
+      x-operation-id-source: derived
     post:
       summary: Query Vector Tile
       tags:
@@ -207,6 +209,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiCompaniesByCidAssetsByZByXByY
+      x-operation-id-source: derived
   /api/teams/{teamId}/assets/{z}/{x}/{y}:
     get:
       summary: Get Vector Tile
@@ -269,6 +273,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: getApiTeamsByTeamIdAssetsByZByXByY
+      x-operation-id-source: derived
     post:
       summary: Query Vector Tile
       tags:
@@ -404,6 +410,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiTeamsByTeamIdAssetsByZByXByY
+      x-operation-id-source: derived
   /api/teams/{teamId}/assets/{assetId}:
     get:
       summary: Get Asset
@@ -618,6 +626,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: getApiTeamsByTeamIdAssetsByAssetId
+      x-operation-id-source: derived
     patch:
       summary: Update Asset
       tags:
@@ -793,6 +803,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: patchApiTeamsByTeamIdAssetsByAssetId
+      x-operation-id-source: derived
     delete:
       summary: Delete Asset
       tags:
@@ -1006,6 +1018,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: deleteApiTeamsByTeamIdAssetsByAssetId
+      x-operation-id-source: derived
   /api/teams/{teamId}/assets:
     post:
       summary: Create Asset
@@ -1205,6 +1219,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiTeamsByTeamIdAssets
+      x-operation-id-source: derived
   /api/assets/query:
     post:
       summary: Query Assets
@@ -1319,6 +1335,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiAssetsQuery
+      x-operation-id-source: derived
   /api/assets/query/column:
     post:
       summary: Distinct Column Values
@@ -1418,6 +1436,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiAssetsQueryColumn
+      x-operation-id-source: derived
   /api/assets/query/project:
     post:
       summary: Query Assets
@@ -1532,6 +1552,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiAssetsQueryProject
+      x-operation-id-source: derived
   /api/assets/query/project/column:
     post:
       summary: Distinct Column Values
@@ -1646,6 +1668,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiAssetsQueryProjectColumn
+      x-operation-id-source: derived
   /api/teams/{teamId}/assets/query:
     post:
       summary: Query Assets
@@ -1767,6 +1791,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiTeamsByTeamIdAssetsQuery
+      x-operation-id-source: derived
   /api/teams/{teamId}/assets/query/project:
     post:
       summary: Query Assets
@@ -1888,6 +1914,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiTeamsByTeamIdAssetsQueryProject
+      x-operation-id-source: derived
   /api/assets/query/project/recent:
     post:
       summary: Query Assets
@@ -2002,6 +2030,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiAssetsQueryProjectRecent
+      x-operation-id-source: derived
   /api/teams/{teamId}/assets/query/project/recent:
     post:
       summary: Query Assets
@@ -2123,6 +2153,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiTeamsByTeamIdAssetsQueryProjectRecent
+      x-operation-id-source: derived
   /api/assets/query/project/favorite:
     post:
       summary: Query Assets
@@ -2237,6 +2269,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiAssetsQueryProjectFavorite
+      x-operation-id-source: derived
   /api/teams/{teamId}/assets/query/project/favorite:
     post:
       summary: Query Assets
@@ -2358,6 +2392,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiTeamsByTeamIdAssetsQueryProjectFavorite
+      x-operation-id-source: derived
 components:
   securitySchemes:
     basicAuth:

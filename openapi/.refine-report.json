@@ -1,0 +1,35 @@
+{
+  "provider": "pvcase",
+  "sources": [
+    "_original/pvcase-anderson-optimization-openapi.json"
+  ],
+  "outputs": [
+    "pvcase-asset-api-openapi.yml",
+    "pvcase-company-api-openapi.yml",
+    "pvcase-project-api-openapi.yml",
+    "pvcase-team-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "pvcase-anderson-optimization-openapi.json: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "pvcase-anderson-optimization-openapi.json: declared missing tag: Asset",
+    "pvcase-anderson-optimization-openapi.json: declared missing tag: Columns",
+    "pvcase-anderson-optimization-openapi.json: declared missing tag: Company",
+    "pvcase-anderson-optimization-openapi.json: declared missing tag: Project",
+    "pvcase-anderson-optimization-openapi.json: declared missing tag: Projects",
+    "pvcase-anderson-optimization-openapi.json: declared missing tag: Query",
+    "pvcase-anderson-optimization-openapi.json: declared missing tag: Team",
+    "pvcase-anderson-optimization-openapi.json: declared missing tag: Vector Tile",
+    "pvcase-anderson-optimization-openapi.json: multi-axis tagging (8 tags, 4 first tags, 1.94x duplication over 48 operations) \u2014 split on first tag, 33 operations narrowed",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "pvcase-asset-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pvcase-company-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pvcase-project-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "pvcase-team-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
+}

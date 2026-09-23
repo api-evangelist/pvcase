@@ -110,6 +110,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: getApiTeamsByTeamId
+      x-operation-id-source: derived
     patch:
       summary: Update Team
       tags:
@@ -228,6 +230,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: patchApiTeamsByTeamId
+      x-operation-id-source: derived
     delete:
       summary: Delete Team
       tags:
@@ -327,6 +331,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: deleteApiTeamsByTeamId
+      x-operation-id-source: derived
   /api/teams:
     get:
       summary: Get All Teams
@@ -412,6 +418,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: getApiTeams
+      x-operation-id-source: derived
     post:
       summary: Create Team
       tags:
@@ -514,6 +522,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiTeams
+      x-operation-id-source: derived
 components:
   securitySchemes:
     basicAuth:

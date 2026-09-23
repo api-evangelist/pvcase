@@ -51,6 +51,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: getApiCompaniesByCid
+      x-operation-id-source: derived
   /api/companies/{cid}/query:
     post:
       summary: Query Company
@@ -172,6 +174,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiCompaniesByCidQuery
+      x-operation-id-source: derived
   /api/companies/{cid}/assets/query:
     post:
       summary: Query Company Assets
@@ -293,6 +297,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiCompaniesByCidAssetsQuery
+      x-operation-id-source: derived
   /api/companies/{cid}/assets/query/project:
     post:
       summary: Query Company Assets, by Project
@@ -414,6 +420,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiCompaniesByCidAssetsQueryProject
+      x-operation-id-source: derived
   /api/companies/{cid}/assets/query/project/favorite:
     post:
       summary: Query Company Assets, by Favorited Projects
@@ -535,6 +543,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiCompaniesByCidAssetsQueryProjectFavorite
+      x-operation-id-source: derived
   /api/companies/{cid}/assets/query/project/recent:
     post:
       summary: Query Company Assets, by Recent Projects
@@ -656,6 +666,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiCompaniesByCidAssetsQueryProjectRecent
+      x-operation-id-source: derived
   /api/companies/{cid}/projects/query:
     post:
       summary: Query Company Projects
@@ -777,6 +789,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiCompaniesByCidProjectsQuery
+      x-operation-id-source: derived
   /api/companies/{cid}/projects/query/recent:
     post:
       summary: Query Company Projects, Recent
@@ -898,6 +912,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiCompaniesByCidProjectsQueryRecent
+      x-operation-id-source: derived
   /api/companies/{cid}/projects/query/favorite:
     post:
       summary: Query Company Projects, Favorites
@@ -1019,6 +1035,8 @@ paths:
                 description: Internal server error
                 example: Internal server error
               example: Internal server error
+      operationId: postApiCompaniesByCidProjectsQueryFavorite
+      x-operation-id-source: derived
 components:
   securitySchemes:
     basicAuth:
