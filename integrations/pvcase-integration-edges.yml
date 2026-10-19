@@ -1,0 +1,26 @@
+edges:
+- partner_name: Autodesk (own)
+  partner: autodesk
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://marketplace.autodesk.com/apps/b08f55f2-8052-4867-85f1-7f2228f1c90c
+  mirror_of: autodesk/integrations/autodesk-integration-edges.yml
+  apps:
+  - PVcase Ground Mount
+  listing_count: 1
+  detected: '2026-10-19'
+  detected_by: mirror-platform-listings.py
+  category: ACD/CIV3D
+  publisher_verified:
+  - autodesk-digital-signature
+generated: '2026-10-19'
+method: searched
+source:
+- https://marketplace.autodesk.com/sitemap.xml
+checked:
+- https://marketplace.autodesk.com/sitemap.xml
